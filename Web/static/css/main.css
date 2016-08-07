@@ -1,0 +1,142 @@
+body {
+    background: #f5f5f5;
+}
+
+body, input, select, textarea {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 16pt;
+    font-weight: 300;
+}
+
+.container-fluid {
+    background: url("../images/banner2.jpg") no-repeat 0 0 fixed;
+    /*background-color: #000;*/
+    height: 905px;
+}
+
+.navbar {
+    padding: 14px 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 60px;
+}
+
+.navbar h1 {
+    font-size: 22px;
+    display: inline-block;
+    /*padding: 1px;*/
+}
+
+.btn-login {
+    display: inline-block;
+    font-size: 16px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 5px;
+    width: 100px;
+    text-align: center;
+}
+
+.btn-login:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.navbar a {
+    color: #fff;;
+}
+
+.navbar h1 span {
+    font-size: 13px;
+    color: #fff;
+}
+
+.nav-item, .nav-item li {
+    float: right;
+    display: inline-block;
+}
+
+.nav-link {
+    font-size: 18px;
+}
+
+#banner {
+    display: block;
+    text-align: center;
+    padding: 200px 0 250px 0;
+    color: #fff;
+}
+
+#banner h1 {
+    font-size: 60px;
+    margin-bottom: 40px;
+}
+
+#banner p {
+    font-size: 25px;
+    margin-bottom: 40px;
+}
+
+.actions {
+    display: inline-block;
+    list-style: none;
+    vertical-align: middle;
+    padding: 0;
+}
+
+ul {
+    vertical-align: middle;
+}
+
+li, a {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.btn {
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    padding: 10px;
+    margin: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.button-link {
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #fff;
+}
+
+.button-link:hover {
+    border: 2px solid #fff;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+.introduce {
+    width: 80%;
+    height: 500px;
+    margin: 0 auto;
+    background-color: whitesmoke;
+    /*border: 2px solid red;*/
+    border-radius: 20px;
+}
+
+.introduce h1 {
+    text-align: center;
+    padding-top: 40px;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.hr {
+    border: 0;
+    background-color: rgba(10, 20, 25, 0.23);
+    height: 2px;
+    width: 50%;
+}
