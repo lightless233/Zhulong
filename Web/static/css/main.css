@@ -62,7 +62,7 @@ body, input, select, textarea {
 #banner {
     display: block;
     text-align: center;
-    padding: 200px 0 250px 0;
+    padding: 200px 0 200px 0;
     color: #fff;
 }
 
@@ -120,11 +120,12 @@ li, a {
 
 .introduce {
     width: 80%;
-    height: 500px;
+    height: 1100px;
     margin: 0 auto;
-    background-color: whitesmoke;
+    background-color: ghostwhite;
     /*border: 2px solid red;*/
     border-radius: 20px;
+    box-shadow: 2px 2px 25px #888888;
 }
 
 .introduce h1 {
@@ -138,5 +139,122 @@ li, a {
     border: 0;
     background-color: rgba(10, 20, 25, 0.23);
     height: 2px;
+    width: 60%;
+}
+
+.introduce-content {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 80%;
+    color: #777;
+}
+
+.introduce-img {
+    margin-top: 100px;
+    background: url("../images/intro2.jpg") 0 0 no-repeat;
+    height: 250px;
+    margin-bottom: 50px;
+}
+
+.introduce-row section {
     width: 50%;
+    display: inline-block;
+    float: left;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.row-1 {
+    margin-top: 20px;
+    border-right: 2px solid rgba(10, 20, 25, 0.26);
+    border-bottom: 2px solid rgba(10, 20, 25, 0.26);
+}
+
+.row-2 {
+    margin-top: 20px;
+    border-bottom: 2px solid rgba(10, 20, 25, 0.26);
+}
+
+.row-3 {
+    padding-top: 20px;
+    border-right: 2px solid rgba(10, 20, 25, 0.26);
+}
+
+.row-4 {
+    padding-top: 20px;
+}
+
+.fa {
+    padding: 30%;
+}
+
+.icon-lock {
+    background: green;
+}
+
+.icon-rocket {
+    background: dodgerblue;
+}
+
+.icon-plug {
+    background: coral;
+}
+
+.icon-share-alt {
+    background: lightcoral;
+}
+
+.icon {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.row-title {
+    margin-top: 10px;
+}
+
+.row-content {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 80%;
+    color: rgba(0,0,0,0.5);
+}
+
+#use-example {
+    margin: 50px auto;
+    height: 500px;
+    width: 80%;
+}
+
+.example {
+    border: 2px solid red;
+    display: inline-block;
+    width: 46%;
+    background: white;
+}
+
+.example-left {
+    float: left;
+}
+
+.example-right {
+    float: right;
+}
+
+
+#footer {
+    background: whitesmoke;
+    height: 100px;
+    margin: 50px 0 0 0;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 100px;
+    font-size: 60%;
+    color: rgba(0,0,0,0.5);
 }
