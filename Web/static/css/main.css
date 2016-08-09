@@ -104,12 +104,12 @@ li, a {
     text-align: center;
 }
 
-.button-link, .button-link:visited {
+.button-link, .button-link:visited, .button-link:active, .button-link:focus {
     border: 2px solid #fff;
     color: #fff;
 }
 
-.btn-secondary:hover, .btn-secondary:visited {
+.btn-secondary:hover, .btn-secondary:visited, .btn-secondary:focus {
     background-color: #fff;
 }
 
@@ -275,7 +275,7 @@ li, a {
     color: #999999;
 }
 
-.btn-learn-more, .btn-learn-more:hover, .btn-learn-more:visited {
+.btn-learn-more, .btn-learn-more:hover, .btn-learn-more:visited, .btn-learn-more:focus {
     border: 2px solid #aaaaaa;
     color: #aaaaaa;
 }
@@ -288,7 +288,7 @@ li, a {
     border-bottom: 2px solid #bbbbbb;
 }
 
-.btn-join-us, .btn-join-us:hover, .btn-join-us:visited {
+.btn-join-us, .btn-join-us:hover, .btn-join-us:visited, .btn-join-us:focus {
     background-color: forestgreen;
     width: 400px;
     height: 100px;
