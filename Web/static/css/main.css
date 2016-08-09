@@ -26,7 +26,7 @@ body, input, select, textarea {
     /*padding: 1px;*/
 }
 
-.btn-login {
+.btn-login, .btn-login:active {
     display: inline-block;
     font-size: 16px;
     border: 1px solid #fff;
@@ -34,6 +34,7 @@ body, input, select, textarea {
     padding: 5px;
     width: 100px;
     text-align: center;
+    text-decoration: none;
 }
 
 .btn-login:hover {
@@ -41,8 +42,9 @@ body, input, select, textarea {
     text-decoration: none;
 }
 
-.navbar a {
-    color: #fff;;
+.navbar a, .navbar a:active {
+    color: #fff;
+    text-decoration: none;
 }
 
 .navbar h1 span {
@@ -76,7 +78,7 @@ body, input, select, textarea {
     margin-bottom: 40px;
 }
 
-.actions {
+.actions, .actions li {
     display: inline-block;
     list-style: none;
     vertical-align: middle;
@@ -102,12 +104,12 @@ li, a {
     text-align: center;
 }
 
-.button-link {
+.button-link, .button-link:visited {
     border: 2px solid #fff;
     color: #fff;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover, .btn-secondary:visited {
     background-color: #fff;
 }
 
@@ -233,10 +235,11 @@ li, a {
 }
 
 .example {
-    border: 2px solid red;
     display: inline-block;
     width: 46%;
     background: white;
+    border-radius: 20px;
+    box-shadow: 2px 2px 25px #888888;
 }
 
 .example-left {
@@ -247,11 +250,59 @@ li, a {
     float: right;
 }
 
+.example-img {
+    overflow: hidden;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.example-title {
+    margin: 30px auto;
+    padding-bottom: 10px;
+    width: 80%;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 2px solid #888888;
+    color: #777777;
+}
+
+.example-content {
+    margin: 30px auto;
+    width: 60%;
+    font-size: 80%;
+    text-align: center;
+    line-height: 160%;
+    color: #999999;
+}
+
+.btn-learn-more, .btn-learn-more:hover, .btn-learn-more:visited {
+    border: 2px solid #aaaaaa;
+    color: #aaaaaa;
+}
+
+.footer-button {
+    margin-top: 120px;
+    padding-bottom: 50px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 2px solid #bbbbbb;
+}
+
+.btn-join-us, .btn-join-us:hover, .btn-join-us:visited {
+    background-color: forestgreen;
+    width: 400px;
+    height: 100px;
+    color: white;
+    padding-top: 30px;
+    font-size: 30px;
+    box-shadow: 2px 2px 25px #888888;
+}
 
 #footer {
+    width: 100%;
     background: whitesmoke;
     height: 100px;
-    margin: 50px 0 0 0;
+    /*margin: 50px 0 0 0;*/
     vertical-align: middle;
     text-align: center;
     line-height: 100px;
