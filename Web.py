@@ -4,6 +4,7 @@
 # time: 16-8-7 16:12
 
 from flask_script import Manager, Server
+from flask_migrate import MigrateCommand
 
 from Web import web, db
 from Web.models import ZhulongUser
@@ -21,6 +22,7 @@ manager = Manager(web)
 
 # 添加命令
 manager.add_command("runserver", Server(host="0.0.0.0"))
+manager.add_command("db", MigrateCommand)
 
 
 @manager.shell

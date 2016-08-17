@@ -7,6 +7,7 @@ import os
 import sys
 
 from flask import Flask
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 from config import DevConfig
@@ -27,6 +28,7 @@ static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static
 web = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
 web.config.from_object(DevConfig)
 db = SQLAlchemy(web)
+migrate = Migrate(web, db)
 
 # 引入路由
 from Web.Controller.Frontend import IndexController
