@@ -7,7 +7,8 @@ import os
 import sys
 
 from flask import Flask
-from flask_script import Manager, Server
+
+from config import DevConfig
 
 __author__ = "lightless"
 __email__ = "root@lightless.me"
@@ -23,8 +24,7 @@ static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static
 
 # 初始化Flask app
 web = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
-manager = Manager(web)
-manager.add_command("runserver", Server(host="0.0.0.0"))
+web.config.from_object(DevConfig)
 
 # 引入路由
 from Web.Controller.Frontend import IndexController
