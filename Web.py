@@ -5,13 +5,16 @@
 
 from flask_script import Manager, Server
 
-from Web import web
+from Web import web, db
+from Web.models import ZhulongUser
 
 __author__ = "lightless"
 __email__ = "root@lightless.me"
 
-# 设置debug模式
-web.debug = True
+"""
+实际上这个文件相当于manage.py
+控制Flask的入口以及shell环境
+"""
 
 # 设置manager
 manager = Manager(web)
@@ -22,7 +25,7 @@ manager.add_command("runserver", Server(host="0.0.0.0"))
 
 @manager.shell
 def make_shell_context():
-    return dict(web=web)
+    return dict(web=web, db=db, ZhulongUser=ZhulongUser)
 
 
 if __name__ == '__main__':

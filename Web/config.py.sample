@@ -15,6 +15,10 @@ class WebBaseConfig(object):
 
 class DevConfig(WebBaseConfig):
 
+    debug = True
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@127.0.0.1/zhulong?charset=utf8"
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+
     def __init__(self):
         super(DevConfig, self).__init__()
 
