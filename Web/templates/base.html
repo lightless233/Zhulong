@@ -1,31 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+{% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{{  url_for("static", filename="css/main.css") }}" rel="stylesheet">
+{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-fixed-top bg-fade">
-        <h1><a href="{{ url_for("index") }}">烛龙</a> <span>by HDUISA</span></h1>
-        <ul class="nav-item">
-            <li><a href="#" class="btn-login">登录</a></li>
-        </ul>
-        <ul class="nav-item">
-            <li><a href="#" class="nav-link">联系我们</a></li>
-        </ul>
-        <ul class="nav-item">
-            <li><a href="#" class="nav-link">帮助文档</a></li>
-        </ul>
-    </nav>
     {% block body %}{% endblock %}
 
     <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/tether/1.3.3/js/tether.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>
-    <script src="{{ url_for('static', filename="js/main.js") }}"></script>
+    <script src="{{ url_for('static', filename="js/index.js") }}"></script>
 </body>
 </html>
