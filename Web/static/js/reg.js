@@ -10,6 +10,7 @@ $("document").ready(function () {
         var username = $("#username").val();
         var email = $("#email").val();
         var password = $("#password").val();
+        var csrf_token = $('meta[name=csrf-token]').attr('content');
 
         var payloads = {
             "username": username,
@@ -17,8 +18,18 @@ $("document").ready(function () {
             "password": password
         };
 
-        $.post("/register", payloads, function (return_data) {
-            console.log(return_data);
+        // $.post("/register", payloads, function (return_data) {
+        //     console.log(return_data);
+        // });
+
+        $.ajax({
+            type: "POST",
+            url: "/register",
+            beforeSend: function (request) {
+                request.setRequestHeader("X-CSRFToken", csrf_token);
+            }, success: function (return_data) {
+                console.log(return_data);
+            }
         });
     });
 

@@ -9,6 +9,7 @@ import sys
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CsrfProtect
 
 from config import DevConfig
 
@@ -31,6 +32,7 @@ web.debug = True
 
 db = SQLAlchemy(web)
 migrate = Migrate(web, db)
+CsrfProtect(web)
 
 # 引入路由
 from Web.Controller.Frontend import IndexController

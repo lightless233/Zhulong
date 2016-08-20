@@ -4,6 +4,7 @@
 # time: 2016/8/19 23:19
 
 from flask import render_template
+from flask import request
 
 from Web import web
 
@@ -18,5 +19,13 @@ def login():
 
 @web.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("Frontend/Account/register.html")
+    if request.method == "GET":
+        return render_template("Frontend/Account/register.html")
+    elif request.method == "POST":
+
+        # 获取数据
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+
 

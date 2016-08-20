@@ -16,6 +16,7 @@ class WebBaseConfig(object):
 class DevConfig(WebBaseConfig):
 
     debug = True
+    SECRET_KEY = "zhulong123456"    # !!! Change it to your own secret key !!!
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@127.0.0.1/zhulong?charset=utf8"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
