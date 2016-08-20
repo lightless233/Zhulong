@@ -5,18 +5,7 @@
 {% endblock %}
 {% block title %}烛龙 - 基于Docker的环境快速构建系统{% endblock %}
 {% block body %}
-<nav class="navbar navbar-fixed-top bg-fade">
-    <h1><a href="{{ url_for("index") }}">烛龙</a> <span>by HDUISA</span></h1>
-    <ul class="nav-item">
-        <li><a href="#" class="btn-login">登录</a></li>
-    </ul>
-    <ul class="nav-item">
-        <li><a href="#" class="nav-link">联系我们</a></li>
-    </ul>
-    <ul class="nav-item">
-        <li><a href="#" class="nav-link">帮助文档</a></li>
-    </ul>
-</nav>
+{% include "Frontend/navbar.html" %}
 <div class="container-fluid">
     <section id="banner">
         <h1>烛龙</h1>

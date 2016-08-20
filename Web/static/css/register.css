@@ -1,0 +1,61 @@
+/* register page */
+
+body {
+    background: url("../images/reg-bg.jpg");
+}
+
+.register-page {
+    border: 2px solid white;
+    width: 30%;
+    margin: 100px auto 50px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 2px 2px 25px #888888;
+}
+
+.register-title {
+    text-align: center;
+    vertical-align: middle;
+    width: 40%;
+    margin: 20px auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.input-group-addon {
+    background: white;
+}
+
+.input-form {
+    border-left: none;
+    height: 50px;
+}
+
+.form-group {
+    margin: 20px auto;
+    width: 90%;
+}
+
+.btn-register, .btn-register:focus {
+    width: 90%;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.tips {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.agree {
+    font-size: 16px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#footer {
+    background: black;
+    color: whitesmoke;
+}

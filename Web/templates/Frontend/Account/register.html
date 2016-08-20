@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link href="{{  url_for("static", filename="css/index.css") }}" rel="stylesheet">
+    <link href="{{  url_for("static", filename="css/register.css") }}" rel="stylesheet">
+{% endblock %}
+{% block title %}注册 - 烛龙{% endblock %}
+{% block body %}
+{% include "Frontend/navbar.html" %}
+
+    <div class="register-page">
+        <div class="register-title">
+            注 册
+        </div>
+        <p class="agree">
+            输入用户名、邮箱、密码即可极速注册。
+        </p>
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                    <input type="text" class="form-control input-form" id="username" placeholder="请输入用户名" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                    <input type="email" class="form-control input-form" id="email" placeholder="请输入邮箱" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-unlock-alt" aria-hidden="true"></i></div>
+                    <input type="password" class="form-control input-form" id="password" placeholder="请输入密码" required>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-register">创建账号</button>
+            <p class="tips">
+                一旦您完成注册账号，即代表您已经同意我们的服务条款。<br />
+                已经有账号了？点我去登录！
+            </p>
+        </form>
+    </div>
+
+    <div id="footer">
+        © Zhulong. All rights reserved. Designed by lightless.
+    </div>
+{% endblock %}
