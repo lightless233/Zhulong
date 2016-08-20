@@ -34,7 +34,7 @@
                     <input type="password" class="form-control input-form" id="password" placeholder="请输入密码" required>
                 </div>
             </div>
-            <button class="btn btn-primary btn-register">创建账号</button>
+            <button class="btn btn-primary btn-register" id="register-btn">创建账号</button>
             <p class="tips">
                 一旦您完成注册账号，即代表您已经同意我们的服务条款。<br />
                 已经有账号了？点我去登录！
@@ -45,4 +45,8 @@
     <div id="footer">
         © Zhulong. All rights reserved. Designed by lightless.
     </div>
+{% endblock %}
+{% block script %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename="js/reg.js") }}"></script>
 {% endblock %}
