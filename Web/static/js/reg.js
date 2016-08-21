@@ -25,10 +25,19 @@ $("document").ready(function () {
         $.ajax({
             type: "POST",
             url: "/register",
+            data: payloads,
             beforeSend: function (request) {
                 request.setRequestHeader("X-CSRFToken", csrf_token);
             }, success: function (return_data) {
-                console.log(return_data);
+                var alert_message = '<div class="alert alert-' + return_data.tag +
+                    ' alert-dismissible fade in flash-alert" role="alert">' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                    '<span aria-hidden="true">&times;</span>' +
+                    '<span class="sr-only">Close</span>' +
+                    '</button>' +
+                    return_data.msg +
+                    '</div>';
+                $("#reg-result").html(alert_message).hide().fadeIn(1000);
             }
         });
     });

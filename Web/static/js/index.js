@@ -4,7 +4,7 @@
 
 $(document).ready(function () {
     $("a").click(function (event) {
-        event.preventDefault();
+        // event.preventDefault();
     });
 
     $("#banner h1").hide().fadeIn(1000);

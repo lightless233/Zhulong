@@ -59,3 +59,9 @@ body {
     background: black;
     color: whitesmoke;
 }
+
+.flash-alert {
+    font-size: 12px;
+    margin: 20px auto;
+    width: 90%;
+}
