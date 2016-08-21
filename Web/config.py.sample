@@ -16,9 +16,17 @@ class WebBaseConfig(object):
 class DevConfig(WebBaseConfig):
 
     debug = True
+    SECURITY_PASSWORD_SALT = "zhulong123456"    # !!! Change it to your own secret key !!!
     SECRET_KEY = "zhulong123456"    # !!! Change it to your own secret key !!!
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@127.0.0.1/zhulong?charset=utf8"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+    # 填入你的发送信息
+    MAIL_SERVER = 'smtp.xxx.com'
+    MAIL_PORT = 465
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = 'username'
+    MAIL_PASSWORD = 'password'
 
     def __init__(self):
         super(DevConfig, self).__init__()

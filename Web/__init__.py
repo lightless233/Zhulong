@@ -11,6 +11,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CsrfProtect
 from flask_bcrypt import Bcrypt
+from flask_mail import Mail
 
 from config import DevConfig
 
@@ -34,7 +35,8 @@ web.debug = True
 db = SQLAlchemy(web)
 migrate = Migrate(web, db)
 CsrfProtect(web)
-bcrypt = Bcrypt()
+bcrypt = Bcrypt(web)
+mail = Mail(web)
 
 # 引入路由
 from Web.Controller.Frontend import IndexController
