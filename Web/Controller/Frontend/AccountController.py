@@ -19,12 +19,12 @@ __author__ = "lightless"
 __email__ = "root@lightless.me"
 
 
-@web.route("/login", methods=["GET", "POST"])
+@web.route("/account/login", methods=["GET", "POST"])
 def login():
     pass
 
 
-@web.route("/register", methods=["GET", "POST"])
+@web.route("/account/register", methods=["GET", "POST"])
 def register():
 
     register_form = RegisterForms()

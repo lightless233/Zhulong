@@ -18,13 +18,9 @@ $("document").ready(function () {
             "password": password
         };
 
-        // $.post("/register", payloads, function (return_data) {
-        //     console.log(return_data);
-        // });
-
         $.ajax({
             type: "POST",
-            url: "/register",
+            url: "/account/register",
             data: payloads,
             beforeSend: function (request) {
                 request.setRequestHeader("X-CSRFToken", csrf_token);
