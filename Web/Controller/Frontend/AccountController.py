@@ -85,10 +85,18 @@ def register():
 @web.route("/account/confirm_email/token/<token>/user/<user>", methods=["GET"])
 def confirm_email(token, user):
 
+    return_data = dict(tag="danger", msg=None)
+
+    # 检查参数
+    if token is None or user is None:
+        return_data["msg"] = u"参数错误"
+        return render_template("Frontend/Account/confirm_email.html", data=return_data)
+
     # 检查该用户是否已经激活
     u = ZhulongUser.query.filter(ZhulongUser.username == user).first()
     if u.is_active:
-        return jsonify(tag="danger", msg=u"已经激活过了，请直接登录！")
+        return_data["msg"] = u"已经激活过了，请登录！"
+        return render_template("Frontend/Account/confirm_email.html", data=return_data)
 
     # 验证token
     result = confirm_email_token(token, user, u.email, u.token)
@@ -98,10 +106,13 @@ def confirm_email(token, user):
             u.is_active = True
             db.session.add(u)
             db.session.commit()
-            return jsonify(tag="success", msg="验证成功")
+            return_data["tag"] = "success"
+            return_data["msg"] = u"验证成功！请登录！"
+            return render_template("Frontend/Account/confirm_email.html", data=return_data)
         except SQLAlchemyError:
-            return jsonify(tag="danger", msg="服务器开小差了，验证失败，请稍后再试。")
+            return_data["msg"] = u"服务器开小差了，请稍后再试！"
+            return render_template("Frontend/Account/confirm_email.html", data=return_data)
     else:
         # 验证失败
-        return jsonify(tag="danger", msg="邮箱验证失败！")
-
+        return_data["msg"] = u"验证失败！"
+        return render_template("Frontend/Account/confirm_email.html", data=return_data)
