@@ -26,7 +26,10 @@ __email__ = "root@lightless.me"
 
 @web.route("/account/login", methods=["GET", "POST"])
 def login():
-    pass
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("Frontend/Account/login.html")
 
 
 @web.route("/account/register", methods=["GET", "POST"])

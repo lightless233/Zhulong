@@ -7,7 +7,7 @@ body {
 .register-page {
     border: 2px solid white;
     width: 30%;
-    margin: 100px auto 50px auto;
+    margin: 70px auto 50px auto;
     background: white;
     border-radius: 20px;
     box-shadow: 2px 2px 25px #888888;
@@ -58,6 +58,8 @@ body {
 #footer {
     background: black;
     color: whitesmoke;
+    position: fixed;
+    bottom: 0;
 }
 
 .flash-alert {
