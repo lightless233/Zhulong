@@ -28,8 +28,8 @@
                     <input type="password" class="form-control input-form" id="password" placeholder="请输入密码" required>
                 </div>
             </div>
-            <div id="reg-result"></div>
-            <button class="btn btn-primary btn-register" id="register-btn">登录</button>
+            <div id="login-result"></div>
+            <button class="btn btn-primary btn-register" id="login-btn">登录</button>
             <p class="tips">
                 还没有账号？点我去注册
             </p>
@@ -42,5 +42,5 @@
 {% endblock %}
 {% block script %}
     {{ super() }}
-    <script src="{{ url_for('static', filename="js/reg.js") }}"></script>
+    <script src="{{ url_for('static', filename="js/login.js") }}"></script>
 {% endblock %}

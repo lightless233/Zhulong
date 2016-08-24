@@ -39,5 +39,7 @@ bcrypt = Bcrypt(web)
 mail = Mail(web)
 
 # 引入路由
+from Web.Controller.System import BeforeRequestController
 from Web.Controller.Frontend import IndexController
 from Web.Controller.Frontend import AccountController
+from Web.Controller.Frontend import HomeController

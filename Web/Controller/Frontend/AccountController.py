@@ -9,12 +9,14 @@ from flask import render_template
 from flask import request
 from flask import jsonify
 from flask import url_for
+from flask import session
+from flask import g
 from sqlalchemy.sql.expression import or_
 from sqlalchemy.exc import SQLAlchemyError
 
 from Web import web
 from Web import db
-from Web.Forms.AccountForms import RegisterForms
+from Web.Forms.AccountForms import RegisterForms, LoginForms
 from Web.models import ZhulongUser
 from Utils.CommonFunctions import generate_confirm_token
 from Utils.CommonFunctions import confirm_email_token
@@ -26,8 +28,48 @@ __email__ = "root@lightless.me"
 
 @web.route("/account/login", methods=["GET", "POST"])
 def login():
+
+    login_form = LoginForms()
+
     if request.method == "POST":
-        pass
+        if login_form.validate_on_submit():
+            tmp_user = ZhulongUser.query.filter(
+                or_(
+                    ZhulongUser.username == login_form.username_or_email.data,
+                    ZhulongUser.email == login_form.username_or_email.data,
+                )
+            ).first()
+
+            if tmp_user and not tmp_user.is_active:
+                return jsonify(tag="danger", msg=u"该用户尚未激活，请到邮箱中查看激活邮件")
+
+            if tmp_user and tmp_user.valid_password(login_form.password.data):
+                # 设置session
+                session["username"] = tmp_user.username
+                # 设置g变量
+                g.current_user = tmp_user
+                # 更新最后登录时间和IP
+                tmp_user.last_login_time = datetime.datetime.now()
+                tmp_user.last_login_ip = request.remote_addr
+                db.session.add(tmp_user)
+                try:
+                    db.session.commit()
+                except SQLAlchemyError:
+                    return jsonify(tag="danger", msg=u"服务器开小差了，请稍后再试")
+                return jsonify(
+                    tag="success",
+                    msg=u"登录成功，跳转中"
+                        u"<script>window.setTimeout(\"location='{url}'\", 1000);</script>".
+                        format(url=url_for("home_index"))
+                )
+            return jsonify(tag="danger", msg=u"用户名或密码错误")
+        else:
+            # 表单验证失败
+            for field_name, error_message in login_form.errors.iteritems():
+                for error in error_message:
+                    # print error
+                    return jsonify(tag="danger", msg=error)
+
     else:
         return render_template("Frontend/Account/login.html")
 
@@ -78,10 +120,10 @@ def register():
             except Exception as e:
                 return jsonify(tag="danger", msg=e)
         else:
+            # 表单验证失败
             for field_name, error_message in register_form.errors.iteritems():
-                print field_name, error_message
                 for error in error_message:
-                    print error
+                    # print error
                     return jsonify(tag="danger", msg=error)
 
 
