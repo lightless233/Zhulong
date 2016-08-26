@@ -27,7 +27,7 @@ __email__ = "root@lightless.me"
 
 
 @web.route("/account/login", methods=["GET", "POST"])
-def login():
+def account_login():
 
     login_form = LoginForms()
 
@@ -75,7 +75,7 @@ def login():
 
 
 @web.route("/account/register", methods=["GET", "POST"])
-def register():
+def account_register():
 
     register_form = RegisterForms()
 

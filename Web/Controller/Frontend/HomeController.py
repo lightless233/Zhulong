@@ -5,6 +5,7 @@
 
 from flask import g
 
+from Utils.LoginRequire import login_required
 from Web import web
 
 __author__ = "lightless"
@@ -12,5 +13,6 @@ __email__ = "root@lightless.me"
 
 
 @web.route("/home/index")
+@login_required
 def home_index():
     return g.current_user.username
