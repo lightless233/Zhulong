@@ -4,7 +4,7 @@
 # time: 16-8-26 下午10:49
 
 from functools import wraps
-from flask import g, request, redirect, url_for, session
+from flask import request, redirect, url_for, session
 
 __author__ = "lightless"
 __email__ = "root@lightless.me"
