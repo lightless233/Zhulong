@@ -27,6 +27,7 @@ class DevConfig(WebBaseConfig):
     MAIL_USE_SSL = True
     MAIL_USERNAME = 'username'
     MAIL_PASSWORD = 'password'
+    MAIL_DEFAULT_SENDER = ""
 
     def __init__(self):
         super(DevConfig, self).__init__()
