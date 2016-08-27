@@ -16,3 +16,6 @@
 
 #### 注册页面
 ![Zhulong Register](https://raw.githubusercontent.com/LiGhT1EsS/Zhulong/dev/docs/register.png)
+
+#### TODO LIST
+- 发送邮件改为异步发送
