@@ -13,6 +13,7 @@ __email__ = "root@lightless.me"
 
 
 @web.route("/home/index")
+@web.route("/home/")
 @login_required
 def home_index():
     print g.current_user.username
