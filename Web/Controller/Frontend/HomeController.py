@@ -16,5 +16,11 @@ __email__ = "root@lightless.me"
 @web.route("/home/")
 @login_required
 def home_index():
-    print g.current_user.username
+    # print g.current_user.username
     return render_template("Frontend/Home/index.html")
+
+
+@web.route("/home/dockers")
+@login_required
+def home_docker():
+    return render_template("Frontend/Home/docker.html")
