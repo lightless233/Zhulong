@@ -60,6 +60,7 @@ class ZhulongDocker(db.Model):
     owner_id = db.Column(INTEGER(10, unsigned=True), nullable=True, default=None)
     docker_name = db.Column(db.String(32), nullable=True, default=None, index=True)
     docker_description = db.Column(db.String(128), nullable=True, default=None)
+    shared = db.Column(db.BOOLEAN, nullable=True, default=True)
     created_time = db.Column(db.DATETIME, nullable=True, default=None)
     updated_time = db.Column(db.DATETIME, nullable=True, default=None)
 
