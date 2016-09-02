@@ -1,5 +1,10 @@
 {% extends "Frontend/Home/home_base.html" %}
 
+{% block head %}
+{{ super() }}
+    <link href="{{  url_for("static", filename="css/home_docker.css") }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block item_entry %}
 <a href="{{ url_for("home_index") }}" class="item-entry">
     <i class="fa fa-tachometer fa-2x item-logo" aria-hidden="true"></i>
@@ -32,7 +37,7 @@
         <a href="#" class="nav-link second-nav-active">My Docker</a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link">Add Docker</a>
+        <a href="{{ url_for("home_docker_add") }}" class="nav-link">Add Docker</a>
     </li>
 </ul>
 {% endblock %}

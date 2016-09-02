@@ -1,0 +1,103 @@
+{% extends "Frontend/Home/home_base.html" %}
+
+{% block head %}
+{{ super() }}
+        <link href="{{  url_for("static", filename="css/home_docker_add.css") }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block item_entry %}
+<a href="{{ url_for("home_index") }}" class="item-entry">
+    <i class="fa fa-tachometer fa-2x item-logo" aria-hidden="true"></i>
+    Dashboard
+</a>
+
+<a href="{{ url_for("home_docker") }}" class="item-entry item-entry-active">
+    <i class="fa fa-server fa-2x item-logo" aria-hidden="true"></i>
+    My Docker
+</a>
+
+<a href="#" class="item-entry">
+    <i class="fa fa-shopping-cart fa-2x item-logo" aria-hidden="true"></i>
+    Market
+</a>
+
+<a href="#" class="item-entry">
+    <i class="fa fa-user fa-2x item-logo" aria-hidden="true"></i>
+    Account
+</a>
+{% endblock %}
+
+{% block main_title %}
+    Add Dockers
+{% endblock %}
+
+{% block second_nav %}
+<ul class="nav nav-pills second-nav">
+    <li class="nav-item">
+        <a href="{{ url_for("home_docker") }}" class="nav-link">My Docker</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for("home_docker_add") }}" class="nav-link second-nav-active">Add Docker</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block main_content %}
+    <div class="step-container">
+        <div class="step-number">1</div>
+        <h3 class="step-title">Chooses Base Image: </h3>
+
+        <div class="step-content">
+            <select class="c-select image-select image-selected">
+                <option selected>Ubuntu 16.04 64bit</option>
+                <option selected>Ubuntu 16.04 32bit</option>
+                <option selected>Ubuntu 14.04 64bit</option>
+                <option selected>Ubuntu 14.04 32bit</option>
+            </select>
+            <select class="c-select image-select">
+                <option selected>CentOS 7.2 64bit</option>
+                <option selected>CentOS 7.2 32bit</option>
+                <option selected>CentOS 6.8 64bit</option>
+                <option selected>CentOS 6.8 32bit</option>
+            </select>
+            <select class="c-select image-select">
+                <option selected>Debian 8 64bit</option>
+                <option selected>Debian 8 32bit</option>
+                <option selected>Debian 7 64bit</option>
+                <option selected>Debian 7 32bit</option>
+            </select>
+        </div>
+
+        <div class="step-number">2</div>
+        <h3 class="step-title">Chooses Base Components: </h3>
+
+        <div class="step-content">
+            <select class="c-select components-select components-selected">
+                <option selected>Nginx latest</option>
+                <option>Apache latest</option>
+                <option>None Web Server</option>
+            </select>
+            <select class="c-select components-select">
+                <option selected>MySQL latest</option>
+                <option>MySQL 5.6</option>
+                <option>MySQL 5.5</option>
+                <option>MySQL 5.4</option>
+                <option>None Database</option>
+            </select>
+            <select class="c-select components-select">
+                <option selected>PHP 7.0.0+</option>
+                <option>PHP 5.6.0+</option>
+                <option>PHP 5.4.0+</option>
+                <option>PHP 5.3.0+</option>
+                <option>PHP 5.2.0+</option>
+                <option>None PHP</option>
+            </select>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+    <script src="{{ url_for("static", filename="js/home_docker_add.js") }}"></script>
+{% endblock %}

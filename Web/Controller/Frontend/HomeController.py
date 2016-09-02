@@ -24,3 +24,10 @@ def home_index():
 @login_required
 def home_docker():
     return render_template("Frontend/Home/docker.html")
+
+
+@web.route("/home/dockers/add")
+@login_required
+def home_docker_add():
+    return render_template("Frontend/Home/docker_add.html")
+
