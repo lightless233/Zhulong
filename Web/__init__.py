@@ -12,6 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CsrfProtect
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
+from flask_triangle import Triangle
 
 from config import DevConfig
 
@@ -37,9 +38,10 @@ migrate = Migrate(web, db)
 CsrfProtect(web)
 bcrypt = Bcrypt(web)
 mail = Mail(web)
+triangle = Triangle(web)
 
 # 引入路由
-from Web.Controller.System import BeforeRequestController
+from Web.Controller.System import SystemController
 from Web.Controller.Frontend import IndexController
 from Web.Controller.Frontend import AccountController
 from Web.Controller.Frontend import HomeController
