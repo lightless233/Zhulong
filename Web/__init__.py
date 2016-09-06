@@ -45,3 +45,4 @@ from Web.Controller.System import SystemController
 from Web.Controller.Frontend import IndexController
 from Web.Controller.Frontend import AccountController
 from Web.Controller.Frontend import HomeController
+from Web.Controller.API import APIController

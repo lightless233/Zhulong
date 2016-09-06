@@ -118,6 +118,7 @@ class ZhulongOPSystem(db.Model):
 
     id = db.Column(INTEGER(10, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
     op_name = db.Column(db.String(32), nullable=False, default=None)
+    version = db.Column(db.String(32), nullable=False, default=None)
     image_name = db.Column(db.String(32), nullable=False, default=None)
     image_url = db.Column(db.String(32), nullable=False, default=None)
 

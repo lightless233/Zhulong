@@ -1,65 +1,17 @@
-{% extends "Frontend/Home/home_base.html" %}
-
-{% block head %}
-{{ super() }}
-    <link href="{{  url_for("static", filename="css/home_docker.css") }}" rel="stylesheet" type="text/css">
-{% endblock %}
-
-{#{% block item_entry %}#}
-{#<a href="{{ url_for("home_index") }}" class="item-entry">#}
-{#    <i class="fa fa-tachometer fa-2x item-logo" aria-hidden="true"></i>#}
-{#    Dashboard#}
-{#</a>#}
-{##}
-{#<a href="{{ url_for("home_docker") }}" class="item-entry item-entry-active">#}
-{#    <i class="fa fa-server fa-2x item-logo" aria-hidden="true"></i>#}
-{#    My Docker#}
-{#</a>#}
-{##}
-{#<a href="#" class="item-entry">#}
-{#    <i class="fa fa-shopping-cart fa-2x item-logo" aria-hidden="true"></i>#}
-{#    Market#}
-{#</a>#}
-{##}
-{#<a href="#" class="item-entry">#}
-{#    <i class="fa fa-user fa-2x item-logo" aria-hidden="true"></i>#}
-{#    Account#}
-{#</a>#}
-{#{% endblock %}#}
-
-{% block main_title %}
-    Your Dockers
-{% endblock %}
-
+<div class="main-title">
+  Your Dockers
+</div>
 {% block second_nav %}
-<ul class="nav nav-pills second-nav">
+  <ul class="nav nav-pills second-nav">
     <li class="nav-item">
-        <a href="#" class="nav-link second-nav-active">My Docker</a>
+      <a ui-sref="docker" class="nav-link second-nav-active">Docker List</a>
     </li>
     <li class="nav-item">
-        <a href="{{ url_for("home_docker_add") }}" class="nav-link">Add Docker</a>
+      <a ui-sref="addDocker" class="nav-link">Add Docker</a>
     </li>
-</ul>
+  </ul>
 {% endblock %}
 
-{% block main_content %}
-<table class="table table-hover table-docker-list">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Docker Name</th>
-      <th>System</th>
-      <th>Current Status</th>
-      <th>Operation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">112233445566</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-  </tbody>
-</table>
-{% endblock %}
+<div class="main-content">
+
+</div>
