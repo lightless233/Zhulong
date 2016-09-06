@@ -34,7 +34,7 @@ def v1_get_op_system_versions():
     if op is None:
         return jsonify(code=1004, message="op can't be empty.")
     op_versions = ZhulongOPSystem.query.filter(ZhulongOPSystem.op_name == op).all()
-    if not len(op_versions):
+    if not op_versions:
         return jsonify(code=1004, message="No available operate system.")
     versions = list()
     for v in op_versions:
