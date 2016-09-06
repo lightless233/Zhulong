@@ -12,6 +12,7 @@
     height: 40px;
     text-align: center;
     margin-right: 20px;
+    line-height: 40px;
 }
 
 .step-title {
@@ -19,24 +20,59 @@
 }
 
 .step-content {
-    margin-bottom: 30px;
+    margin: 30px auto;
 }
 
-.image-select, .components-select {
-    margin: 30px;
+.image-btn {
+    margin: auto 10px;
+    border-radius: 0;
+    width: 100px;
+}
+
+.base-image-version {
+    margin: 30px 10px;
+}
+
+.base-image-version > select {
+    border-radius: 0;
     width: 200px;
-    height: 80px;
-    text-align: center;
-    border-color: deepskyblue;
-    background: deepskyblue;
-    font-size: 2em;
-    color: white;
 }
 
-.image-selected, .components-selected {
-    background: cornflowerblue;
-    border-color: cornflowerblue;
+.base-image-version > label {
+    margin-right: 20px;
+    font-size: 1.1em;
 }
 
+.components-row {
+    margin: 20px auto;
+}
 
+.components-version-row {
+    font-size: 1em;
+    margin: 10px auto;
+}
+
+.select-components-version {
+    border-radius: 0;
+    width: 220px;
+}
+
+.bottom-hr {
+    /*float: right;*/
+    border-bottom: 1px solid #888888;
+    width: 98%;
+    margin: 20px auto;
+}
+
+.pre-create {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.pre-create > button {
+    width: 200px;
+    border-radius: 0;
+    float: right;
+    margin-right: 100px;
+}
 

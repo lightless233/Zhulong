@@ -1,103 +1,92 @@
-{% extends "Frontend/Home/home_base.html" %}
-
-{% block head %}
-{{ super() }}
-        <link href="{{  url_for("static", filename="css/home_docker_add.css") }}" rel="stylesheet" type="text/css">
-{% endblock %}
-
-{% block item_entry %}
-<a href="{{ url_for("home_index") }}" class="item-entry">
-    <i class="fa fa-tachometer fa-2x item-logo" aria-hidden="true"></i>
-    Dashboard
-</a>
-
-<a href="{{ url_for("home_docker") }}" class="item-entry item-entry-active">
-    <i class="fa fa-server fa-2x item-logo" aria-hidden="true"></i>
-    My Docker
-</a>
-
-<a href="#" class="item-entry">
-    <i class="fa fa-shopping-cart fa-2x item-logo" aria-hidden="true"></i>
-    Market
-</a>
-
-<a href="#" class="item-entry">
-    <i class="fa fa-user fa-2x item-logo" aria-hidden="true"></i>
-    Account
-</a>
-{% endblock %}
-
-{% block main_title %}
-    Add Dockers
-{% endblock %}
-
-{% block second_nav %}
+<div class="main-title">
+  Add Dockers
+</div>
 <ul class="nav nav-pills second-nav">
-    <li class="nav-item">
-        <a href="{{ url_for("home_docker") }}" class="nav-link">My Docker</a>
-    </li>
-    <li class="nav-item">
-        <a href="{{ url_for("home_docker_add") }}" class="nav-link second-nav-active">Add Docker</a>
-    </li>
+  <li class="nav-item">
+    <a ui-sref="docker" class="nav-link">My Docker</a>
+  </li>
+  <li class="nav-item">
+    <a ui-sref="addDocker" class="nav-link second-nav-active">Add Docker</a>
+  </li>
 </ul>
-{% endblock %}
 
-{% block main_content %}
-    <div class="step-container">
-        <div class="step-number">1</div>
-        <h3 class="step-title">Chooses Base Image: </h3>
+<div class="step-container" ng-controller="addDockerController">
+  <div class="alert alert-danger" role="alert" ng-show="errorMessage" style="width: 98%">
+    <strong>ERROR! </strong> {{ errorMessage | angular }}
+  </div>
+  <div class="step-number">1</div>
+  <h3 class="step-title">Choose Base Image: </h3>
+  <div class="step-content">
+    <button ng-repeat="opbutton in OPSystemButtons" class="btn image-btn"
+            ng-click="clickOPSystemButton(opbutton)"
+            ng-class="{'btn-primary': activeButtonClass==opbutton}">{{ opbutton | angular }}</button>
+  </div>
+  <div class="base-image-version">
+    <label for="base-image-version" class="col-form-label">Choose Image Version: </label>
+    <select id="base-image-version" class="custom-select" data-ng-model="selectedOPVersion"
+            ng-options="ver.vid as (ver.op_name+ver.version) for ver in op_versions">
+      <option value="">Please Choose Version</option>
+    </select>
+  </div>
 
-        <div class="step-content">
-            <select class="c-select image-select image-selected">
-                <option selected>Ubuntu 16.04 64bit</option>
-                <option selected>Ubuntu 16.04 32bit</option>
-                <option selected>Ubuntu 14.04 64bit</option>
-                <option selected>Ubuntu 14.04 32bit</option>
-            </select>
-            <select class="c-select image-select">
-                <option selected>CentOS 7.2 64bit</option>
-                <option selected>CentOS 7.2 32bit</option>
-                <option selected>CentOS 6.8 64bit</option>
-                <option selected>CentOS 6.8 32bit</option>
-            </select>
-            <select class="c-select image-select">
-                <option selected>Debian 8 64bit</option>
-                <option selected>Debian 8 32bit</option>
-                <option selected>Debian 7 64bit</option>
-                <option selected>Debian 7 32bit</option>
-            </select>
-        </div>
-
-        <div class="step-number">2</div>
-        <h3 class="step-title">Chooses Base Components: </h3>
-
-        <div class="step-content">
-            <select class="c-select components-select components-selected">
-                <option selected>Nginx latest</option>
-                <option>Apache latest</option>
-                <option>None Web Server</option>
-            </select>
-            <select class="c-select components-select">
-                <option selected>MySQL latest</option>
-                <option>MySQL 5.6</option>
-                <option>MySQL 5.5</option>
-                <option>MySQL 5.4</option>
-                <option>None Database</option>
-            </select>
-            <select class="c-select components-select">
-                <option selected>PHP 7.0.0+</option>
-                <option>PHP 5.6.0+</option>
-                <option>PHP 5.4.0+</option>
-                <option>PHP 5.3.0+</option>
-                <option>PHP 5.2.0+</option>
-                <option>None PHP</option>
-            </select>
-        </div>
-
+  <div class="step-number">2</div>
+  <h3 class="step-title">Choose Base Components: </h3>
+  <div class="step-content">
+    <div class="components-row">
+      <label class="col-form-label col-md-2">Database: </label>
+      <button class="btn btn-primary image-btn">MySQL</button>
+      <button class="btn btn-default image-btn">PostgreSQL</button>
+      <button class="btn btn-default image-btn">SQLite</button>
     </div>
-{% endblock %}
+    <div class="components-row">
+      <label class="col-form-label col-md-2">Web Server: </label>
+      <button class="btn btn-primary image-btn">Apache</button>
+      <button class="btn btn-primary image-btn">Nginx</button>
+    </div>
+    <div class="components-row">
+      <label class="col-form-label col-md-2">NoSQL Database: </label>
+      <button class="btn btn-default image-btn">Mongodb</button>
+      <button class="btn btn-default image-btn">Redis</button>
+    </div>
+    <div class="components-row">
+      <label class="col-form-label col-md-2">Language: </label>
+      <button class="btn btn-primary image-btn">PHP</button>
+    </div>
+  </div>
 
-{% block script %}
-{{ super() }}
-    <script src="{{ url_for("static", filename="js/home_docker_add.js") }}"></script>
-{% endblock %}
+  <div class="step-number">3</div>
+  <h3 class="step-title">Choose Base Components Version: </h3>
+  <div class="step-content">
+    <div class="components-version-row">
+      <label class="col-form-label col-md-1">MySQL</label>
+      <select class="custom-select select-components-version">
+        <option value="1" selected>MySQL 5.7</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="components-version-row">
+      <label class="col-form-label col-md-1">Nginx</label>
+      <select class="custom-select select-components-version">
+        <option value="1" selected>Nginx 1.9</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="components-version-row">
+      <label class="col-form-label col-md-1">PHP</label>
+      <select class="custom-select select-components-version">
+        <option value="1" selected>PHP 7.0.5</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="bottom-hr"></div>
+  <div class="pre-create">
+    <button class="btn btn-success btn-create">Create</button>
+  </div>
+
+</div>
+<script src="{{ url_for("static", filename="js/home_docker_add.js") }}"></script>

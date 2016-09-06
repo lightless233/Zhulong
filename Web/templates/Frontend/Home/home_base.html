@@ -1,81 +1,62 @@
-{% extends "base.html" %}
+{% extends "Frontend/ng_base.html" %}
 {% block head %}
-    {{ super() }}
-    <link href="{{  url_for("static", filename="css/home_base.css") }}" rel="stylesheet" type="text/css">
-    <link href='//cdn.webfont.youziku.com/webfonts/nomal/90470/47019/57c10d33f629d81604fb7c37.css' rel='stylesheet' type='text/css' />
-    <link href='//cdn.webfont.youziku.com/webfonts/nomal/90470/46972/57c11797f629d81604fb7c57.css' rel='stylesheet' type='text/css' />
+  {{ super() }}
+  <link href="{{ url_for("static", filename="css/home_base.css") }}" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/90470/47019/57c10d33f629d81604fb7c37.css' rel='stylesheet'
+        type='text/css'/>
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/90470/46972/57c11797f629d81604fb7c57.css' rel='stylesheet'
+        type='text/css'/>
 {% endblock %}
 {% block title %}个人中心 - 烛龙{% endblock %}
 {% block body %}
-    <div class="side-bar">
-        <div class="home-logo"></div>
-        {% block item_entry %}
-        <a href="#" class="item-entry item-entry-active">
-            <i class="fa fa-tachometer fa-2x item-logo" aria-hidden="true"></i>
-            Dashboard
-        </a>
+  <div class="side-bar" ui-view="sidebar">
+  </div>
 
-        <a href="{{ url_for("home_docker") }}" class="item-entry">
-            <i class="fa fa-server fa-2x item-logo" aria-hidden="true"></i>
-            My Docker
-        </a>
-
-        <a href="#" class="item-entry">
-            <i class="fa fa-shopping-cart fa-2x item-logo" aria-hidden="true"></i>
-            Market
-        </a>
-
-        <a href="#" class="item-entry">
-            <i class="fa fa-user fa-2x item-logo" aria-hidden="true"></i>
-            Account
-        </a>
-        {% endblock %}
+  <div class="welcome-header">
+    Welcome Back! {{ g.current_user.username }}
+    <div class="btn-group">
+      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle username-btn" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" style="border-radius: 0">
+        <a class="dropdown-item" href="#">Placeholder</a>
+        <a class="dropdown-item" href="#">Placeholder</a>
+        <a class="dropdown-item" href="#">Placeholder</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Logout</a>
+      </div>
     </div>
-    <div class="main-window">
-        <div class="welcome-header">
-            Welcome Back! {{ g.current_user.username }}
-            <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle username-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-                <div class="dropdown-menu dropdown-menu-right" style="border-radius: 0">
-                <a class="dropdown-item" href="#">Placeholder</a>
-                <a class="dropdown-item" href="#">Placeholder</a>
-                <a class="dropdown-item" href="#">Placeholder</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
-                </div>
-            </div>
-        </div>
+  </div>
+  <div class="main-window" ui-view="main_window">
+{#    <div class="main-title">#}
+{#      {% block main_title %}#}
+{#        Dashboard#}
+{#      {% endblock %}#}
+{#    </div>#}
+{#    {% block second_nav %}#}
+{#      <ul class="nav nav-pills second-nav">#}
+{#        <li class="nav-item">#}
+{#          <a href="#" class="nav-link second-nav-active">Overview</a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#          <a href="#" class="nav-link">placeholder</a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#          <a href="#" class="nav-link">placeholder</a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#          <a href="#" class="nav-link">placeholder</a>#}
+{#        </li>#}
+{#      </ul>#}
+{#    {% endblock %}#}
+{##}
+{#    <div class="main-content">#}
+{#      {% block main_content %}#}
+{#      {% endblock %}#}
+{#    </div>#}
 
-        <div class="main-title">
-            {% block main_title %}
-                Dashboard
-            {% endblock %}
-        </div>
-        {% block second_nav %}
-        <ul class="nav nav-pills second-nav">
-            <li class="nav-item">
-                <a href="#" class="nav-link second-nav-active">Overview</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">placeholder</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">placeholder</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">placeholder</a>
-            </li>
-        </ul>
-        {% endblock %}
-
-        <div class="main-content">
-            {% block main_content %}
-            {% endblock %}
-        </div>
-
-    </div>
+  </div>
 
 
 {% endblock %}

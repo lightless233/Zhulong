@@ -118,6 +118,7 @@ class ZhulongOPSystem(db.Model):
 
     id = db.Column(INTEGER(10, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
     op_name = db.Column(db.String(32), nullable=False, default=None)
+    version = db.Column(db.String(32), nullable=False, default=None)
     image_name = db.Column(db.String(32), nullable=False, default=None)
     image_url = db.Column(db.String(32), nullable=False, default=None)
 
@@ -128,3 +129,46 @@ class ZhulongOPSystem(db.Model):
 
     def __repr__(self):
         return "<ZhulongOPSystem {id}-{op_name}>".format(id=self.id, op_name=self.op_name)
+
+
+class ZhulongBaseComponents(db.Model):
+    """
+    存储基础组件的镜像
+    """
+    __tablename__ = "zhulong_base_components"
+
+    id = db.Column(INTEGER(10, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
+    components_type = db.Column(TINYINT(unsigned=True), default=None, nullable=True)    # 基础组件的类别
+    components_name = db.Column(db.String(64), default=None, nullable=True)     # 基础组件的名称
+    components_version = db.Column(db.String(32), default=None, nullable=True)   # 基础组件的版本
+    components_url = db.Column(db.String(256), default=None, nullable=True)     # 该组件的pull url
+    components_image = db.Column(db.String(32), default=None, nullable=True)    # 组件的image名称
+
+    def __init__(self, com_type, com_name, com_version, com_url, com_image):
+        self.components_type = com_type
+        self.components_name = com_name
+        self.components_version = com_version
+        self.components_url = com_url
+        self.components_image = com_image
+
+    def __repr__(self):
+        return "<ZhulongBaseComponents {id}-{name}:{version}>".format(
+            id=self.id, name=self.components_name, version=self.components_version
+        )
+
+
+class ZhulongBaseComponentType(db.Model):
+    """
+    存储基础组件的类别信息
+    """
+    __tablename__ = "zhulong_base_component_type"
+
+    id = db.Column(INTEGER(10, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
+    type_name = db.Column(db.String(64), default=None, nullable=True)   # 类别的名称
+
+    def __init__(self, type_name):
+        self.type_name = type_name
+
+    def __repr__(self):
+        return "<ZhulongBaseComponentType {id}-{name}>".format(id=self.id, name=self.type_name)
+

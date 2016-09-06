@@ -1,0 +1,24 @@
+<div class="side-bar">
+  <div class="home-logo"></div>
+  {% block item_entry %}
+    <a data-ui-sref="index" class="item-entry item-entry-active">
+      <i class="fa fa-tachometer fa-2x item-logo" aria-hidden="true"></i>
+      Dashboard
+    </a>
+
+    <a data-ui-sref="docker" class="item-entry">
+      <i class="fa fa-server fa-2x item-logo" aria-hidden="true"></i>
+      My Docker
+    </a>
+
+    <a href="#" class="item-entry">
+      <i class="fa fa-shopping-cart fa-2x item-logo" aria-hidden="true"></i>
+      Market
+    </a>
+
+    <a href="#" class="item-entry">
+      <i class="fa fa-user fa-2x item-logo" aria-hidden="true"></i>
+      Account
+    </a>
+  {% endblock %}
+</div>
