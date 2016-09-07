@@ -140,7 +140,7 @@ body {
 
 .bottom-hr {
     /*float: right;*/
-    border-bottom: 1px solid #888888;
+    border-bottom: 1px solid #dddddd;
     width: 98%;
     margin: 20px auto;
 }

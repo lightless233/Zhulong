@@ -32,60 +32,50 @@
   <div class="step-number">2</div>
   <h3 class="step-title">Choose Base Components: </h3>
   <div class="step-content">
-    <div class="components-row">
-      <label class="col-form-label col-md-2">Database: </label>
-      <button class="btn btn-primary image-btn">MySQL</button>
-      <button class="btn btn-default image-btn">PostgreSQL</button>
-      <button class="btn btn-default image-btn">SQLite</button>
-    </div>
-    <div class="components-row">
-      <label class="col-form-label col-md-2">Web Server: </label>
-      <button class="btn btn-primary image-btn">Apache</button>
-      <button class="btn btn-primary image-btn">Nginx</button>
-    </div>
-    <div class="components-row">
-      <label class="col-form-label col-md-2">NoSQL Database: </label>
-      <button class="btn btn-default image-btn">Mongodb</button>
-      <button class="btn btn-default image-btn">Redis</button>
-    </div>
-    <div class="components-row">
-      <label class="col-form-label col-md-2">Language: </label>
-      <button class="btn btn-primary image-btn">PHP</button>
+    <div ng-repeat="baseCom in baseComs" class="components-row">
+      <label class="col-form-label col-md-2">{{ baseCom.com_type | angular }}</label>
+      <button ng-repeat="d in baseCom.data" ng-class="{'btn-primary': chkBaseComBtn(d.com_name)}"
+              ng-click="clickBaseComBtn(d.com_name)"  class="btn image-btn" >{{ d.com_name | angular }}</button>
     </div>
   </div>
 
   <div class="step-number">3</div>
   <h3 class="step-title">Choose Base Components Version: </h3>
   <div class="step-content">
-    <div class="components-version-row">
-      <label class="col-form-label col-md-1">MySQL</label>
-      <select class="custom-select select-components-version">
-        <option value="1" selected>MySQL 5.7</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
+    <div class="components-version-row" ng-repeat="sbc in selectedBaseCom">
+      <label class="col-form-label col-md-1">{{ sbc.com_name | angular }}</label>
+      <select class="custom-select select-components-version" data-ng-model="userSelectComVersions[sbc.com_name]"
+              ng-options="ver as ver for ver in sbc.versions"></select>
     </div>
-    <div class="components-version-row">
-      <label class="col-form-label col-md-1">Nginx</label>
-      <select class="custom-select select-components-version">
-        <option value="1" selected>Nginx 1.9</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-    <div class="components-version-row">
-      <label class="col-form-label col-md-1">PHP</label>
-      <select class="custom-select select-components-version">
-        <option value="1" selected>PHP 7.0.5</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
+{#    <div class="components-version-row">#}
+{#      <label class="col-form-label col-md-1">MySQL</label>#}
+{#      <select class="custom-select select-components-version">#}
+{#        <option value="1" selected>MySQL 5.7</option>#}
+{#        <option value="2">Two</option>#}
+{#        <option value="3">Three</option>#}
+{#      </select>#}
+{#    </div>#}
+{#    <div class="components-version-row">#}
+{#      <label class="col-form-label col-md-1">Nginx</label>#}
+{#      <select class="custom-select select-components-version">#}
+{#        <option value="1" selected>Nginx 1.9</option>#}
+{#        <option value="2">Two</option>#}
+{#        <option value="3">Three</option>#}
+{#      </select>#}
+{#    </div>#}
+{#    <div class="components-version-row">#}
+{#      <label class="col-form-label col-md-1">PHP</label>#}
+{#      <select class="custom-select select-components-version">#}
+{#        <option value="1" selected>PHP 7.0.5</option>#}
+{#        <option value="2">Two</option>#}
+{#        <option value="3">Three</option>#}
+{#      </select>#}
+{#    </div>#}
   </div>
 
   <div class="bottom-hr"></div>
   <div class="pre-create">
-    <button class="btn btn-success btn-create">Create</button>
+    <button class="btn btn-success">Create</button>
   </div>
 
 </div>
