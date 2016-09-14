@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # coding: utf-8
-# file: APIController
+# file: APIController.py
 # time: 2016/9/6 21:11
 
 from flask import jsonify, request
@@ -78,10 +78,8 @@ def v1_get_base_components():
     return_list = list()
     for info in result:
         # 检查return_list中是否存在对应类型的字典
-        found = False
         for dd in return_list:
             if dd.get("com_type") == info[2]:
-                found = True
                 # 找到了，直接向data中添加数据
                 # 检查dd中是否存在该类型的组件
                 f_found = False
