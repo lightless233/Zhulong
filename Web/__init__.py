@@ -6,6 +6,8 @@
 import os
 import sys
 
+import docker
+from docker.errors import DockerException
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -15,6 +17,7 @@ from flask_mail import Mail
 from flask_triangle import Triangle
 
 from config import DevConfig
+from Utils.LoggerHelp import logger
 
 __author__ = "lightless"
 __email__ = "root@lightless.me"
@@ -33,12 +36,34 @@ web = Flask(__name__, static_folder=static_folder, template_folder=template_fold
 web.config.from_object(DevConfig)
 web.debug = True
 
+# 初始化相关插件
 db = SQLAlchemy(web)
 migrate = Migrate(web, db)
 CsrfProtect(web)
 bcrypt = Bcrypt(web)
 mail = Mail(web)
 triangle = Triangle(web)
+
+# 初始化docker remote api
+docker_remote_api_url = web.config.get("DOCKER_REMOTE_API_URL", None)
+if docker_remote_api_url is None:
+    print "Docker Remote API没有设置"
+    sys.exit(1)
+try:
+    logger.info("Try to connect to docker remote api...")
+    docker_client = docker.Client(base_url=docker_remote_api_url, timeout=30)
+    logger.info("Connect successful.")
+    docker_version = docker_client.version()
+    logger.info("Docker Version: {}".format(docker_version.get("Version", "Unknown")))
+    logger.info("OS: {0} {1} {2}".format(
+        docker_version.get("Os", "Unknown OS"),
+        docker_version.get("Arch", "Unknown Arch"),
+        docker_version.get("KernelVersion", "Unknown Kernel")
+    ))
+except DockerException as e:
+    logger.error(e)
+    logger.error("Docker Remote API connect failed.")
+    sys.exit(1)
 
 # 引入路由
 from Web.Controller.System import SystemController
