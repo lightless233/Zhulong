@@ -29,6 +29,11 @@ class DevConfig(WebBaseConfig):
     MAIL_PASSWORD = 'password'
     MAIL_DEFAULT_SENDER = ""
 
+    # Docker Remote API URL
+    # 如果dockerd监听在本机，可以使用unix://var/run/docker.sock
+    # 将其中的/var/run/替换为实际路径
+    DOCKER_REMOTE_API_URL = 'unix://var/run/docker.sock'
+
     def __init__(self):
         super(DevConfig, self).__init__()
 
