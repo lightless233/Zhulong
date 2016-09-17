@@ -6,7 +6,7 @@ userHomeApp.controller("bodyController", function ($scope) {
     $scope.test = "123";
 });
 
-userHomeApp.controller("addDockerController", function ($scope, $http, $log) {
+userHomeApp.controller("addDockerController", function ($scope, $http, $log, $window) {
     // todo: 拆分这个controller
     // API的版本
     var API_VERSION = "v1";
@@ -39,6 +39,9 @@ userHomeApp.controller("addDockerController", function ($scope, $http, $log) {
     $scope.baseComVersions = {};
     // 用户选择的基础组件版本信息
     $scope.userSelectComVersions = {};
+
+    $scope.alertTag = 'danger';
+    $scope.addDockerBtn = false;
 
     // 获取基础组件的信息
     // todo: 与上面的API合并，减少请求次数
@@ -89,7 +92,6 @@ userHomeApp.controller("addDockerController", function ($scope, $http, $log) {
     // 选择基础组件的按钮
     $scope.clickBaseComBtn = function(baseCom) {
         // 如果不存在就推进去，否则就删去
-        $log.debug($scope.selectedBaseCom[baseCom]);
         if ($scope.selectedBaseCom[baseCom]) {
             // 存在
             delete $scope.selectedBaseCom[baseCom];
@@ -97,12 +99,38 @@ userHomeApp.controller("addDockerController", function ($scope, $http, $log) {
             // 不存在，和版本信息一起push进去
             $scope.selectedBaseCom[baseCom] = $scope.baseComVersions[baseCom];
         }
-
-        $log.debug($scope.selectedBaseCom);
     };
 
     // 检查基础组件的按钮状态
     $scope.chkBaseComBtn = function(baseCom) {
         return $scope.selectedBaseCom[baseCom];
-    }
+    };
+
+    // 添加docker的按钮
+    $scope.addDocker = function () {
+        var data = {
+            "OPSystem": $scope.activeButtonClass,
+            "OPVersion": $scope.selectedOPVersion,
+            "BaseCom": $scope.userSelectComVersions
+        };
+        // $scope.addDockerBtn = true;
+        // get csrf token
+        var csrfToken = $window.document.getElementsByName("csrf-token")[0].content;
+        $http({
+            method: "POST",
+            url: "/api/" + API_VERSION + "/add_new_docker",
+            data: data,
+            headers: {"X-CSRFToken": csrfToken}
+        }).success(function (data) {
+            if (data.code != 1001) {
+                $scope.errorMessage = data.message;
+            } else {
+                $scope.alertTag = 'success';
+                $scope.errorMessage = data.message;
+            }
+        }).error(function () {
+            $scope.errorMessage = "Create a docker failed.";
+            return false;
+        });
+    };
 });

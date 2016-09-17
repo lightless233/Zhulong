@@ -73,7 +73,6 @@ def v1_get_base_components():
     ).filter(
         ZhulongBaseComponents.components_type == ZhulongBaseComponentType.id
     ).all()
-    print result
     # 整理数据
     return_list = list()
     for info in result:
@@ -97,3 +96,22 @@ def v1_get_base_components():
 
     return jsonify(code=1001, data=return_list)
 
+
+@web.route("/api/v1/add_new_docker", methods=['POST'])
+@login_required
+def v1_add_new_docker():
+    # {u'OPSystem': u'centos', u'OPVersion': 4, u'BaseCom': {u'MySQL': u'5.7'}}
+    data = request.json
+    print data
+    op_system = data.get("OPSystem", None)
+    op_version = data.get("OPVersion", None)
+    base_com = data.get("BaseCom", None)
+
+    if op_system is None:
+        return jsonify(code=1004, message="Operate system can't be blank.")
+    if op_version is None:
+        return jsonify(code=1004, message="Operate system version can't be blank.")
+    for bc in base_com:
+        if base_com.get(bc, None) is None:
+            return jsonify(code=1004, message="{0} version can't be blank.".format(bc))
+    return "123"

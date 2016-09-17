@@ -11,7 +11,8 @@
 </ul>
 
 <div class="step-container" ng-controller="addDockerController">
-  <div class="alert alert-danger" role="alert" ng-show="errorMessage" style="width: 98%">
+  <div class="alert" ng-class="{'alert-danger': alertTag == 'danger', 'alert-success': alertTag == 'success'}"
+       role="alert" ng-show="errorMessage" style="width: 98%">
     <strong>ERROR! </strong> {{ errorMessage | angular }}
   </div>
   <div class="step-number">1</div>
@@ -51,7 +52,7 @@
 
   <div class="bottom-hr"></div>
   <div class="pre-create">
-    <button class="btn btn-success">Create</button>
+    <button class="btn btn-success" ng-click="addDocker()" data-ng-disabled="addDockerBtn">Create</button>
   </div>
 
 </div>
