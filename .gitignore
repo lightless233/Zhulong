@@ -90,3 +90,4 @@ ENV/
 
 .idea/
 Web/config.py
+Test.py
