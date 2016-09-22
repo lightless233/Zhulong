@@ -100,6 +100,10 @@ def v1_get_base_components():
 @web.route("/api/v1/add_new_docker", methods=['POST'])
 @login_required
 def v1_add_new_docker():
+    """
+    添加新docker
+    :return: json
+    """
     # {u'OPSystem': u'centos', u'OPVersion': 4, u'BaseCom': {u'MySQL': u'5.7'}}
     data = request.json
     print data
@@ -107,6 +111,7 @@ def v1_add_new_docker():
     op_version = data.get("OPVersion", None)
     base_com = data.get("BaseCom", None)
 
+    # 检查参数
     if op_system is None:
         return jsonify(code=1004, message="Operate system can't be blank.")
     if op_version is None:
@@ -114,4 +119,8 @@ def v1_add_new_docker():
     for bc in base_com:
         if base_com.get(bc, None) is None:
             return jsonify(code=1004, message="{0} version can't be blank.".format(bc))
+
+    # 生成对应的docker
+
+
     return "123"

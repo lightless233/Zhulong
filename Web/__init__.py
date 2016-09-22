@@ -47,7 +47,7 @@ triangle = Triangle(web)
 # 初始化docker remote api
 docker_remote_api_url = web.config.get("DOCKER_REMOTE_API_URL", None)
 if docker_remote_api_url is None:
-    print "Docker Remote API没有设置"
+    logger.error("Docker Remote API没有设置")
     sys.exit(1)
 try:
     logger.info("Try to connect to docker remote api...")
