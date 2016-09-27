@@ -6,6 +6,7 @@
 import datetime
 
 from sqlalchemy.dialects.mysql import TINYINT
+from sqlalchemy.dialects.mysql import INTEGER
 from sqlalchemy.dialects.mysql import BIGINT
 
 from Utils.CommonFunctions import generate_random_string
@@ -72,7 +73,7 @@ class ZhulongUserContainers(db.Model):
     container_name = db.Column(db.String(64), nullable=True, default=None)          # container的名称
     container_id = db.Column(db.String(12), nullable=True, default=None)            # container ID
     ssh_user = db.Column(db.String(32), nullable=True, default=None)                # SSH username
-    ssh_port = db.Column(db.INTEGER(5), nullable=True, default=None)                # SSH port
+    ssh_port = db.Column(INTEGER(5, unsigned=True), nullable=True, default=None)                # SSH port
     ssh_password = db.Column(db.String(16), nullable=True, default=None)            # SSH password
     url = db.Column(db.String(255), nullable=True, default=None)                    # 分配到的域名
     is_running = db.Column(db.BOOLEAN, nullable=True, default=False)        # container是否在运行，1-run，0-stop状态
