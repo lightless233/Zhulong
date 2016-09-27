@@ -5,8 +5,8 @@
 
 import datetime
 
-from sqlalchemy.dialects.mysql import INTEGER
 from sqlalchemy.dialects.mysql import TINYINT
+from sqlalchemy.dialects.mysql import BIGINT
 
 from Utils.CommonFunctions import generate_random_string
 from Web import db
@@ -22,7 +22,7 @@ class ZhulongUser(db.Model):
     """
     __tablename__ = "zhulong_user"
 
-    id = db.Column(db.INTEGER(), primary_key=True, nullable=False, autoincrement=True)
+    id = db.Column(BIGINT(20, unsigned=True), primary_key=True, nullable=False, autoincrement=True)
     username = db.Column(db.String(64), nullable=False, unique=True)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
@@ -40,8 +40,9 @@ class ZhulongUser(db.Model):
     def valid_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
 
-    def __init__(self, username, email, password, last_login_time, last_login_ip, created_time, updated_time):
-        # TODO: fix this
+    def __init__(self, username=None, email=None, password=None, last_login_time=None,
+                 last_login_ip=None, created_time=datetime.datetime.now(),
+                 updated_time=datetime.datetime.now()):
         self.username = username
         self.email = email
         self.set_password(password)
@@ -64,9 +65,9 @@ class ZhulongUserContainers(db.Model):
     """
     __tablename__ = "zhulong_user_containers"
 
-    id = db.Column(INTEGER(10, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
-    owner_id = db.Column(INTEGER(10, unsigned=True), nullable=True, default=None)   # container拥有者ID
-    image_id = db.Column(INTEGER(10, unsigned=True), nullable=True, default=None)   # image的ID
+    id = db.Column(BIGINT(20, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
+    owner_id = db.Column(BIGINT(20, unsigned=True), nullable=True, default=None)   # container拥有者ID
+    image_id = db.Column(BIGINT(20, unsigned=True), nullable=True, default=None)   # image的ID
     image_type = db.Column(TINYINT(2, unsigned=True), nullable=True, default=None)  # image type, 1-base, 2-user
     container_name = db.Column(db.String(64), nullable=True, default=None)          # container的名称
     container_id = db.Column(db.String(12), nullable=True, default=None)            # container ID
@@ -81,11 +82,23 @@ class ZhulongUserContainers(db.Model):
     created_time = db.Column(db.DATETIME, nullable=True, default=None)
     updated_time = db.Column(db.DATETIME, nullable=True, default=None)
 
-    def __init__(self, owner_id, docker_name, docker_description, created_time, updated_time):
-        # TODO: fix this
+    def __init__(self, owner_id=None, image_id=None, image_type=None, container_name=None,
+                 container_id=None, ssh_user=None, ssh_port=None, ssh_password=None, url=None,
+                 is_running=False, is_deleted=False, last_run_time=None, last_stop_time=None,
+                 created_time=datetime.datetime.now(), updated_time=datetime.datetime.now()):
         self.owner_id = owner_id
-        self.docker_name = docker_name
-        self.docker_description = docker_description
+        self.image_id = image_id
+        self.image_type = image_type
+        self.container_name = container_name
+        self.container_id = container_id
+        self.ssh_user = ssh_user
+        self.ssh_port = ssh_port
+        self.ssh_password = ssh_password
+        self.url = url
+        self.is_running = is_running
+        self.is_deleted = is_deleted
+        self.last_run_time = last_run_time
+        self.last_stop_time = last_stop_time
         self.created_time = created_time
         self.updated_time = updated_time
 
@@ -100,7 +113,7 @@ class ZhulongSystemImages(db.Model):
     """
     __tablename__ = "zhulong_system_images"
 
-    id = db.Column(INTEGER(10, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
+    id = db.Column(BIGINT(20, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
     op_name = db.Column(db.String(32), nullable=True, default=None)        # 操作系统名称
     version = db.Column(db.String(32), nullable=True, default=None)        # 版本
     image_name = db.Column(db.String(32), nullable=True, default=None)     # 镜像名称 e.g. base-ubuntu:16.04
@@ -133,8 +146,8 @@ class ZhulongUserImages(db.Model):
     """
     __tablename__ = "zhulong_shared_images"
 
-    id = db.Column(INTEGER(10, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
-    owner_id = db.Column(INTEGER(10, unsigned=True), default=None)    # image的拥有者
+    id = db.Column(BIGINT(20, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
+    owner_id = db.Column(BIGINT(20, unsigned=True), default=None)    # image的拥有者
     image_id = db.Column(db.String(12), default=None)       # image id
     image_name = db.Column(db.String(32), default=None)     # image name, e.g. base-ubuntu:16.04
     image_description = db.Column(db.String(255), default=None)     # image 描述
@@ -164,5 +177,40 @@ class ZhulongUserImages(db.Model):
     def __repr__(self):
         return "<ZhulongUserImages {0}-{1}>".format(self.id, self.image_name)
 
-    # TODO: add two function: 1.add_expose_port, 2.add_parent_image
-    # TODO: change primary key to BIGINT(20) UNSIGNED
+    def add_expose_port(self, port=None):
+        """
+        增加暴露端口的方法
+        add_expose_port(port=["22", "33"])  # 增加端口列表
+        add_expose_port(port="22")          # 增加单一端口
+        :param port: list or str
+        :return: None
+        """
+        if port is not None:
+            if isinstance(port, list):
+                self.exposed_port += ","
+                for p in port:
+                    if not p.isdigit():
+                        continue
+                    self.exposed_port += str(p) + ","
+                self.exposed_port.strip(",")
+            elif isinstance(port, str) and port.isdigit():
+                self.exposed_port += "," + str(port)
+
+    def add_parent_image(self, parent_id=None):
+        """
+        增加一个父镜像id
+        add_parent_image(parent_id=["134", "79"])   # 增加一系列的id
+        add_parent_image(parent_id="334")           # 增加单一id
+        :param parent_id: list or str
+        :return: None
+        """
+        if parent_id is not None:
+            if isinstance(parent_id, list):
+                self.parent_image += ","
+                for pid in parent_id:
+                    if not pid.isdigit():
+                        continue
+                    self.parent_image += str(pid) + ","
+                self.parent_image.strip(",")
+            elif isinstance(parent_id, str) and parent_id.isdigit():
+                self.parent_image += "," + str(parent_id)
