@@ -3,125 +3,46 @@
 # file: APIController.py
 # time: 2016/9/6 21:11
 
-# from flask import jsonify, request
-# from sqlalchemy import distinct
-#
-# from Web import web, db
-# from Web.models import ZhulongOPSystem, ZhulongBaseComponents, ZhulongBaseComponentType
-# from Utils.LoginRequire import login_required
-#
-# __author__ = "lightless"
-# __email__ = "root@lightless.me"
-#
-#
-# @web.route("/api/v1/get_op_systems", methods=["GET"])
-# @login_required
-# def v1_get_op_systems():
-#     ops = db.session.query(distinct(ZhulongOPSystem.op_name)).all()
-#     # 清除ops中的垃圾信息
-#     ops = [o[0] for o in ops]
-#     if ops:
-#         return jsonify(code=1001, message="query success.", ops=ops)
-#     else:
-#         return jsonify(code=1004, message="No available operate system.")
-#
-#
-# @web.route("/api/v1/get_op_system_versions", methods=["GET"])
-# @login_required
-# def v1_get_op_system_versions():
-#     """
-#     获取指定操作系统的版本信息
-#     :return: json
-#     """
-#     op = request.args.get("op", None)
-#     if op is None:
-#         return jsonify(code=1004, message="op can't be empty.")
-#     op_versions = ZhulongOPSystem.query.filter(ZhulongOPSystem.op_name == op).all()
-#     if not op_versions:
-#         return jsonify(code=1004, message="No available operate system.")
-#     versions = list()
-#     for v in op_versions:
-#         t = dict()
-#         t["vid"] = v.id
-#         t["op_name"] = v.op_name
-#         t["version"] = v.version
-#         versions.append(t)
-#     return jsonify(code=1001, message="query success.", versions=versions)
-#
-#
-# @web.route("/api/v1/get_base_components", methods=['GET'])
-# @login_required
-# def v1_get_base_components():
-#     """
-#     获取基础组件的信息
-#     :return: json
-#     [
-#         {
-#             "com_type": "database",
-#             "data": [
-#                 {"com_name": "MySQL", versions:["5.7", "5.6"]},
-#                 {"com_name": "SQLite", versions:["2.1", "3.0"]},
-#             ],
-#         },
-#         ...
-#     ]
-#     """
-#     result = db.session.query(
-#         ZhulongBaseComponents.components_name,
-#         ZhulongBaseComponents.components_version,
-#         ZhulongBaseComponentType.type_name,
-#     ).filter(
-#         ZhulongBaseComponents.components_type == ZhulongBaseComponentType.id
-#     ).all()
-#     # 整理数据
-#     return_list = list()
-#     for info in result:
-#         # 检查return_list中是否存在对应类型的字典
-#         for dd in return_list:
-#             if dd.get("com_type") == info[2]:
-#                 # 找到了，直接向data中添加数据
-#                 # 检查dd中是否存在该类型的组件
-#                 f_found = False
-#                 for c in dd["data"]:
-#                     if c.get("com_name") == info[0]:
-#                         # 找到了，添加版本信息
-#                         f_found = True
-#                         c["versions"].append(info[1])
-#                         break
-#                 if not f_found:
-#                     dd["data"].append(dict(com_name=info[0], versions=[info[1]]))
-#                 break
-#         else:
-#             return_list.append(dict(com_type=info[2], data=[dict(com_name=info[0], versions=[info[1]])]))
-#
-#     return jsonify(code=1001, data=return_list)
-#
-#
-# @web.route("/api/v1/add_new_docker", methods=['POST'])
-# @login_required
-# def v1_add_new_docker():
-#     """
-#     添加新docker
-#     :return: json
-#     """
-#     # {u'OPSystem': u'centos', u'OPVersion': 4, u'BaseCom': {u'MySQL': u'5.7'}}
-#     data = request.json
-#     print data
-#     op_system = data.get("OPSystem", None)
-#     op_version = data.get("OPVersion", None)
-#     base_com = data.get("BaseCom", None)
-#
-#     # 检查参数
-#     if op_system is None:
-#         return jsonify(code=1004, message="Operate system can't be blank.")
-#     if op_version is None:
-#         return jsonify(code=1004, message="Operate system version can't be blank.")
-#     for bc in base_com:
-#         if base_com.get(bc, None) is None:
-#             return jsonify(code=1004, message="{0} version can't be blank.".format(bc))
-#
-#     # 生成对应的docker
-#
-#
-#     return "123"
+from flask import jsonify, request
+from sqlalchemy import distinct
+
+from Web import web, db
+from Web.models import ZhulongSystemImages
+from Utils.LoginRequire import login_required
+
+__author__ = "lightless"
+__email__ = "root@lightless.me"
+
+
+@web.route("/api/v1/get_info", methods=['GET'])
+@login_required
+def api_get_info():
+
+    # 获取所有的系统镜像名称
+    results = ZhulongSystemImages.query.group_by(ZhulongSystemImages.op_name).all()
+    op_images_info = dict()
+
+    try:
+        for res in results:
+            op_images_info[res.op_name] = list()
+
+            # 获取对应系统镜像的版本和ID信息
+            versions = ZhulongSystemImages.query.filter(
+                ZhulongSystemImages.op_name == res.op_name
+            ).group_by(ZhulongSystemImages.version).all()
+
+            # 整理数据
+            op_images_info[res.op_name] = [dict(value=ver.id, version=ver.version) for ver in versions]
+            # for ver in versions:
+            #     op_images_info[res.op_name].append(dict(value=ver.id, version=ver.version))
+    except Exception as e:
+        return jsonify(code=1004, message=e.message)
+
+    return jsonify(info=op_images_info, code=1001, message="Successful")
+
+
+@web.route("/api/v1/create_docker", methods=["POST"])
+@login_required
+def api_create_docker():
+    pass
 
