@@ -6,6 +6,12 @@ userHomeApp.controller("bodyController", function ($scope) {
     $scope.test = "123";
 });
 
+userHomeApp.controller("SidebarController", function ($scope, $log, $location) {
+    $scope.activeSidebar = null;
+    $scope.activeSidebar = $location.$$path.split("/")[1];
+    $log.debug("sidebar controller click.")
+});
+
 userHomeApp.controller("addDockerController", function ($scope, $http, $log, $window) {
     // todo: 拆分这个controller
     // API的版本
