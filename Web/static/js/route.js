@@ -15,7 +15,8 @@ userHomeApp.config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: "/tpl/Frontend/Home/home_base.html"
             },
             'sidebar': {
-                templateUrl: "/tpl/Frontend/Home/sidebar.html"
+                templateUrl: "/tpl/Frontend/Home/sidebar.html",
+                controller: "SidebarController"
             },
             // 'main_window': {
             //     templateUrl: "/tpl/Frontend/Home/docker.html"
@@ -30,7 +31,8 @@ userHomeApp.config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: "/tpl/Frontend/Home/home_base.html"
             },
             'sidebar': {
-                templateUrl: "/tpl/Frontend/Home/sidebar.html"
+                templateUrl: "/tpl/Frontend/Home/sidebar.html",
+                controller: "SidebarController"
             },
             'main_window': {
                 templateUrl: "/tpl/Frontend/Home/docker.html"

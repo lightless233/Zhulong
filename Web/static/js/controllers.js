@@ -6,120 +6,67 @@ userHomeApp.controller("bodyController", function ($scope) {
     $scope.test = "123";
 });
 
-userHomeApp.controller("addDockerController", function ($scope, $http, $log, $window) {
-    // todo: 拆分这个controller
-    // API的版本
+// 侧边栏高亮显示的控制器
+userHomeApp.controller("SidebarController", function ($scope, $log, $location) {
+    $scope.activeSidebar = $location.$$path.split("/")[1];
+});
+
+userHomeApp.controller("createNewDocker", function ($scope, $http, $log, $window) {
+
+    // API版本，后续更新时，保持接口一致，只需更改这个就可以了
     var API_VERSION = "v1";
 
-    // 选择操作系统的buttons
-    $scope.activeButtonClass = false;
+    // 系统镜像版本信息
+    $scope.versions = [{"version": "None"}];
+    $scope.ver_id = null;
+    $scope.port = null;
+    $scope.createDockerBtn = false;
+
+    // 获取生成表单用的信息
     $http({
         method: 'GET',
-        url: "/api/" + API_VERSION + "/get_op_systems"
-    }).success(function (data) {
-        if (data.code != 1001) {
-            // 状态码失败
-            $scope.errorMessage = data.messag;
+        url: "/api/" + API_VERSION + "/get_info"
+    }).success(function (response) {
+        if (response.code != 1001) {
+            $scope.errorMessage = response.message;
+            return false;
         } else {
-            // 正常
-            $scope.OPSystemButtons = data.ops;
+            $scope.info = response.info;
         }
-    }).error(function (data) {
-        $log.error("拉取系统镜像信息失败");
-        $scope.errorMessage = "Error while pulling operation system...";
+    }).error(function () {
+        $log.error("拉取操作系统版本信息失败！");
+        $scope.errorMessage = "Error when getting op system...";
         return false;
     });
 
-    // 操作系统的版本列表
-    $scope.op_versions = {};
-    $scope.selectedOPVersion = "";
-
-    // base components
-    $scope.selectedBaseCom = {};
-    $scope.baseComVersions = {};
-    // 用户选择的基础组件版本信息
-    $scope.userSelectComVersions = {};
-
-    $scope.alertTag = 'danger';
-    $scope.addDockerBtn = false;
-
-    // 获取基础组件的信息
-    // todo: 与上面的API合并，减少请求次数
-    $http({
-        method: "GET",
-        url: "/api/" + API_VERSION + "/get_base_components"
-    }).success(function (data) {
-        if (data.code != 1001) {
-            $scope.errorMessage = "Error while pull base components information...";
-            return false;
-        } else {
-            $scope.baseComs = data.data;
-            // 提取其中的versions信息
-            for(var i = 0; i < data.data.length; ++i) {
-                var t = data.data[i];
-                for (var j = 0; j < t.data.length; ++j) {
-                    $scope.baseComVersions[t.data[j].com_name] = t.data[j];
-                }
-            }
-        }
-        // $log.debug($scope.baseComVersions);
-    }).error(function (data) {
-        $log.error("拉取基础组件信息失败");
-        $scope.errorMessage = "Error while pulling base components...";
-        return false;
-    });
-
-    // 选择操作系统的按钮
-    $scope.clickOPSystemButton = function (op) {
-        $scope.activeButtonClass = op;
-        // 从后台获取操作系统版本信息
-        $http({
-            method: 'GET',
-            url: "/api/" + API_VERSION + "/get_op_system_versions?op=" + op
-        }).success(function (data) {
-            if (data.code != 1001) {
-                $scope.errorMessage = data.message;
-            } else {
-                $scope.op_versions = data.versions;
-            }
-        }).error(function (data) {
-            $log.error("拉取操作系统版本信息失败！");
-            $scope.errorMessage = "Error when getting op system...";
-            return false;
-        });
+    // 选择系统镜像
+    $scope.funcSystemImage = function (imageName) {
+        $scope.imageName = imageName;
+        $scope.versions = $scope.info[imageName];
+        // $log.debug($scope.versions);
     };
 
-    // 选择基础组件的按钮
-    $scope.clickBaseComBtn = function(baseCom) {
-        // 如果不存在就推进去，否则就删去
-        if ($scope.selectedBaseCom[baseCom]) {
-            // 存在
-            delete $scope.selectedBaseCom[baseCom];
-        } else {
-            // 不存在，和版本信息一起push进去
-            $scope.selectedBaseCom[baseCom] = $scope.baseComVersions[baseCom];
-        }
+    // 选择镜像版本
+    $scope.funcImageVersion = function (ver_id) {
+        $scope.ver_id = ver_id;
     };
 
-    // 检查基础组件的按钮状态
-    $scope.chkBaseComBtn = function(baseCom) {
-        return $scope.selectedBaseCom[baseCom];
-    };
+    // 创建镜像
+    $scope.funcCreateDocker = function () {
 
-    // 添加docker的按钮
-    $scope.addDocker = function () {
-        var data = {
-            "OPSystem": $scope.activeButtonClass,
-            "OPVersion": $scope.selectedOPVersion,
-            "BaseCom": $scope.userSelectComVersions
+        // 禁用按钮
+        $scope.createDockerBtn = true;
+
+        // 整理数据
+        var payload = {
+            "version_id": $scope.ver_id,
+            "port": $scope.port,
         };
-        // $scope.addDockerBtn = true;
-        // get csrf token
         var csrfToken = $window.document.getElementsByName("csrf-token")[0].content;
         $http({
             method: "POST",
-            url: "/api/" + API_VERSION + "/add_new_docker",
-            data: data,
+            url: "/api/" + API_VERSION + "/create_docker",
+            data: payload,
             headers: {"X-CSRFToken": csrfToken}
         }).success(function (data) {
             if (data.code != 1001) {
@@ -132,5 +79,6 @@ userHomeApp.controller("addDockerController", function ($scope, $http, $log, $wi
             $scope.errorMessage = "Create a docker failed.";
             return false;
         });
-    };
+
+    }
 });

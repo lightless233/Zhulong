@@ -6,54 +6,45 @@
     <a ui-sref="docker" class="nav-link">My Docker</a>
   </li>
   <li class="nav-item">
-    <a ui-sref="addDocker" class="nav-link second-nav-active">Add Docker</a>
+    <a ui-sref="addDocker" class="nav-link second-nav-active">Add Base Docker</a>
   </li>
 </ul>
 
-<div class="step-container" ng-controller="addDockerController">
-  <div class="alert" ng-class="{'alert-danger': alertTag == 'danger', 'alert-success': alertTag == 'success'}"
-       role="alert" ng-show="errorMessage" style="width: 98%">
-    <strong>ERROR! </strong> {{ errorMessage | angular }}
+<div class="create-new-docker" ng-controller="createNewDocker">
+  <div class="step-title">
+    <span class="step-number">1</span>Base System Images
   </div>
-  <div class="step-number">1</div>
-  <h3 class="step-title">Choose Base Image: </h3>
-  <div class="step-content">
-    <button ng-repeat="opbutton in OPSystemButtons" class="btn image-btn"
-            ng-click="clickOPSystemButton(opbutton)"
-            ng-class="{'btn-primary': activeButtonClass==opbutton}">{{ opbutton | angular }}</button>
-  </div>
-  <div class="base-image-version">
-    <label for="base-image-version" class="col-form-label">Choose Image Version: </label>
-    <select id="base-image-version" class="custom-select" data-ng-model="selectedOPVersion"
-            ng-options="ver.vid as (ver.op_name+ver.version) for ver in op_versions">
-      <option value="">Please Choose Version</option>
-    </select>
-  </div>
-
-  <div class="step-number">2</div>
-  <h3 class="step-title">Choose Base Components: </h3>
-  <div class="step-content">
-    <div ng-repeat="baseCom in baseComs" class="components-row">
-      <label class="col-form-label col-md-2">{{ baseCom.com_type | angular }}</label>
-      <button ng-repeat="d in baseCom.data" ng-class="{'btn-primary': chkBaseComBtn(d.com_name)}"
-              ng-click="clickBaseComBtn(d.com_name)"  class="btn image-btn" >{{ d.com_name | angular }}</button>
+  <div class="base-op-system">
+    <div ng-repeat="(k, v) in info" class="op-system-cell" ng-click="funcSystemImage(k)"
+         ng-class="{'op-system-cell-active': imageName==k}">
+      {{ k | angular }}
     </div>
   </div>
-
-  <div class="step-number">3</div>
-  <h3 class="step-title">Choose Base Components Version: </h3>
-  <div class="step-content">
-    <div class="components-version-row" ng-repeat="sbc in selectedBaseCom">
-      <label class="col-form-label col-md-1">{{ sbc.com_name | angular }}</label>
-      <select class="custom-select select-components-version" data-ng-model="userSelectComVersions[sbc.com_name]"
-              ng-options="ver as ver for ver in sbc.versions"></select>
+  <div class="step-title">
+    <span class="step-number">2</span>System Version
+  </div>
+  {{ versions.version | angular }}
+  <div class="base-system-version">
+    <div ng-repeat="ver in versions" class="op-system-cell" ng-click="funcImageVersion(ver.value)"
+         ng-class="{'op-system-cell-active': ver_id == ver.value}">
+      {{ ver.version | angular }}
     </div>
   </div>
-
-  <div class="bottom-hr"></div>
-  <div class="pre-create">
-    <button class="btn btn-success" ng-click="addDocker()" data-ng-disabled="addDockerBtn">Create</button>
+  <div class="step-title">
+    <span class="step-number">3</span>Exposed Port
   </div>
-
+  <div class="base-open-port form-group">
+    <label></label>
+      <div class="col-md-6" style="width: 40%;">
+        <input type="text" class="form-control" ng-model="port"
+               placeholder="Port to be exposed, e.g. 22,80,1337,2333">
+      </div>
+  </div>
+  <hr class="sp-hr">
+  <div class="create-docker">
+    <button class="btn btn-success create-docker-btn" data-ng-disabled="createDockerBtn"
+            ng-click="funcCreateDocker()">Create</button>
+  </div>
 </div>
+
 <script src="{{ url_for("static", filename="js/home_docker_add.js") }}"></script>
