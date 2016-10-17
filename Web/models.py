@@ -24,7 +24,7 @@ class ZhulongUser(db.Model):
     __tablename__ = "zhulong_user"
 
     id = db.Column(BIGINT(20, unsigned=True), primary_key=True, nullable=False, autoincrement=True)
-    username = db.Column(db.String(64), nullable=False, unique=True)
+    username = db.Column(db.String(32), nullable=False, unique=True)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
     last_login_time = db.Column(db.DATETIME, nullable=True, default=None)
@@ -70,7 +70,7 @@ class ZhulongUserContainers(db.Model):
     owner_id = db.Column(BIGINT(20, unsigned=True), nullable=True, default=None)   # container拥有者ID
     image_id = db.Column(BIGINT(20, unsigned=True), nullable=True, default=None)   # image的ID
     image_type = db.Column(TINYINT(2, unsigned=True), nullable=True, default=None)  # image type, 1-base, 2-user
-    container_name = db.Column(db.String(64), nullable=True, default=None)          # container的名称
+    container_name = db.Column(db.String(128), nullable=True, default=None)          # container的名称
     container_id = db.Column(db.String(12), nullable=True, default=None)            # container ID
     ssh_user = db.Column(db.String(32), nullable=True, default=None)                # SSH username
     ssh_port = db.Column(INTEGER(5, unsigned=True), nullable=True, default=None)                # SSH port
