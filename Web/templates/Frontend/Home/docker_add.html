@@ -34,10 +34,18 @@
     <span class="step-number">3</span>Exposed Port
   </div>
   <div class="base-open-port form-group">
-    <label></label>
       <div class="col-md-6" style="width: 40%;">
         <input type="text" class="form-control" ng-model="port"
                placeholder="Port to be exposed, e.g. 22,80,1337,2333">
+      </div>
+  </div><br />
+  <div class="step-title">
+    <span class="step-number">4</span>Container Name
+  </div>
+  <div class="base-container-name form-group">
+      <div class="col-md-6" style="width: 40%;">
+        <input type="text" class="form-control" ng-model="containerName"
+               placeholder="Container name. It will auto add your username as prefix.">
       </div>
   </div>
   <hr class="sp-hr">

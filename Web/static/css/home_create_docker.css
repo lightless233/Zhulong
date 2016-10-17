@@ -19,11 +19,11 @@
 
 .sp-hr {
     width: 96%;
-    margin: 20px auto;
+    margin: 100px auto 20px auto;
     display: block;
 }
 
-.base-open-port {
+.base-open-port, .base-container-name {
     margin-bottom: 50px;
 }
 
@@ -61,6 +61,6 @@
     background: #0275d8;
 }
 
-.base-op-system, .base-system-version, .base-open-port {
+.base-op-system, .base-system-version, .base-open-port, .base-container-name {
     margin-left: 50px;
 }
