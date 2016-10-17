@@ -20,6 +20,7 @@ userHomeApp.controller("createNewDocker", function ($scope, $http, $log, $window
     $scope.versions = [{"version": "None"}];
     $scope.ver_id = null;
     $scope.port = null;
+    $scope.containerName = null;
     $scope.createDockerBtn = false;
 
     // 获取生成表单用的信息
@@ -61,6 +62,7 @@ userHomeApp.controller("createNewDocker", function ($scope, $http, $log, $window
         var payload = {
             "version_id": $scope.ver_id,
             "port": $scope.port,
+            "container_name": $scope.containerName
         };
         var csrfToken = $window.document.getElementsByName("csrf-token")[0].content;
         $http({
