@@ -86,7 +86,7 @@ class ZhulongUserContainers(db.Model):
 
     def __init__(self, owner_id=None, image_id=None, image_type=None, container_name=None,
                  container_id=None, ssh_user=None, ssh_port=None, ssh_password=None, url=None,
-                 is_running=False, is_deleted=False, last_run_time=None, last_stop_time=None,
+                 ports=None, is_running=False, is_deleted=False, last_run_time=None, last_stop_time=None,
                  created_time=datetime.datetime.now(), updated_time=datetime.datetime.now()):
         self.owner_id = owner_id
         self.image_id = image_id
@@ -97,6 +97,7 @@ class ZhulongUserContainers(db.Model):
         self.ssh_port = ssh_port
         self.ssh_password = ssh_password
         self.url = url
+        self.ports = ports
         self.is_running = is_running
         self.is_deleted = is_deleted
         self.last_run_time = last_run_time
