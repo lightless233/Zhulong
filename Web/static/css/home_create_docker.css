@@ -60,3 +60,7 @@
     color: #fff;
     background: #0275d8;
 }
+
+.base-op-system, .base-system-version, .base-open-port {
+    margin-left: 50px;
+}
