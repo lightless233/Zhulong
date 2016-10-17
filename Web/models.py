@@ -76,6 +76,7 @@ class ZhulongUserContainers(db.Model):
     ssh_port = db.Column(INTEGER(5, unsigned=True), nullable=True, default=None)                # SSH port
     ssh_password = db.Column(db.String(16), nullable=True, default=None)            # SSH password
     url = db.Column(db.String(255), nullable=True, default=None)                    # 分配到的域名
+    ports = db.Column(db.String(1024), nullable=True, default="{}")                 # 所有端口
     is_running = db.Column(db.BOOLEAN, nullable=True, default=False)        # container是否在运行，1-run，0-stop状态
     is_deleted = db.Column(db.BOOLEAN, nullable=True, default=False)        # 该container是否被删除，1-删了，0-没删
     last_run_time = db.Column(db.DATETIME, nullable=True, default=None)     # 最后一次run时间
