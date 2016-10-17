@@ -71,7 +71,7 @@ class ZhulongUserContainers(db.Model):
     image_id = db.Column(BIGINT(20, unsigned=True), nullable=True, default=None)   # image的ID
     image_type = db.Column(TINYINT(2, unsigned=True), nullable=True, default=None)  # image type, 1-base, 2-user
     container_name = db.Column(db.String(128), nullable=True, default=None)          # container的名称
-    container_id = db.Column(db.String(12), nullable=True, default=None)            # container ID
+    container_id = db.Column(db.String(64), nullable=True, default=None)            # container ID
     ssh_user = db.Column(db.String(32), nullable=True, default=None)                # SSH username
     ssh_port = db.Column(INTEGER(5, unsigned=True), nullable=True, default=None)                # SSH port
     ssh_password = db.Column(db.String(16), nullable=True, default=None)            # SSH password
@@ -119,7 +119,7 @@ class ZhulongSystemImages(db.Model):
     op_name = db.Column(db.String(32), nullable=True, default=None)        # 操作系统名称
     version = db.Column(db.String(32), nullable=True, default=None)        # 版本
     image_name = db.Column(db.String(32), nullable=True, default=None)     # 镜像名称 e.g. base-ubuntu:16.04
-    image_id = db.Column(db.String(12), nullable=True, default=None)       # 镜像id
+    image_id = db.Column(db.String(64), nullable=True, default=None)       # 镜像id
     expose_port = db.Column(db.String(512), nullable=True, default=None)   # 需要暴露的端口，逗号分隔: 22,80,443
     is_deleted = db.Column(db.BOOLEAN, nullable=True, default=None)
     created_time = db.Column(db.DATETIME, nullable=True, default=None)
@@ -150,7 +150,7 @@ class ZhulongUserImages(db.Model):
 
     id = db.Column(BIGINT(20, unsigned=True), primary_key=True, autoincrement=True, nullable=False)
     owner_id = db.Column(BIGINT(20, unsigned=True), default=None)    # image的拥有者
-    image_id = db.Column(db.String(12), default=None)       # image id
+    image_id = db.Column(db.String(64), default=None)       # image id
     image_name = db.Column(db.String(32), default=None)     # image name, e.g. base-ubuntu:16.04
     image_description = db.Column(db.String(255), default=None)     # image 描述
     exposed_port = db.Column(db.String(512), default=None)  # 需要暴露的端口，逗号分隔: 22,80,443
