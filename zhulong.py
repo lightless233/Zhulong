@@ -7,7 +7,8 @@ from flask_script import Manager, Server
 from flask_migrate import MigrateCommand
 
 from Web import web, db
-from Web.models import ZhulongUser
+from Web.models import ZhulongUser, ZhulongUserContainers
+from Web.models import ZhulongSystemImages, ZhulongUserImages
 
 __author__ = "lightless"
 __email__ = "root@lightless.me"
@@ -27,7 +28,10 @@ manager.add_command("db", MigrateCommand)
 
 @manager.shell
 def make_shell_context():
-    return dict(web=web, db=db, ZhulongUser=ZhulongUser)
+    return dict(
+        web=web, db=db, ZhulongUser=ZhulongUser, ZhulongUserContainers=ZhulongUserContainers,
+        ZhulongSystemImages=ZhulongSystemImages, ZhulongUserImages=ZhulongUserImages
+    )
 
 
 if __name__ == '__main__':
