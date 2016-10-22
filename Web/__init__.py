@@ -7,7 +7,7 @@ import os
 import sys
 
 import docker
-from docker.errors import DockerException
+from docker.errors import DockerException, APIError
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -60,9 +60,9 @@ try:
         docker_version.get("Arch", "Unknown Arch"),
         docker_version.get("KernelVersion", "Unknown Kernel")
     ))
-except DockerException as e:
+except (DockerException, APIError) as e:
     logger.error(e)
-    logger.error("Docker Remote API connect failed.")
+    logger.fatal("Docker Remote API connect failed.")
     sys.exit(1)
 
 # 引入路由
