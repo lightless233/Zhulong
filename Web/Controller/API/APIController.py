@@ -7,6 +7,7 @@ import json
 
 from flask import jsonify, request, g
 
+from Utils.LoggerHelp import logger
 from Web import web, db, docker_client
 from Web.models import ZhulongSystemImages
 from Web.models import ZhulongUserContainers
@@ -36,8 +37,6 @@ def api_get_info():
 
             # 整理数据
             op_images_info[res.op_name] = [dict(value=ver.id, version=ver.version) for ver in versions]
-            # for ver in versions:
-            #     op_images_info[res.op_name].append(dict(value=ver.id, version=ver.version))
     except Exception as e:
         return jsonify(code=1004, message=e.message)
 
@@ -59,7 +58,7 @@ def api_create_docker():
     system_image = ZhulongSystemImages.query.filter(ZhulongSystemImages.id == version_id).first()
     if not system_image:
         return jsonify(code=1004, message="系统版本选择有误")
-    print system_image
+    logger.debug(system_image)
 
     # 检查container name
     if container_name == "":
@@ -74,7 +73,7 @@ def api_create_docker():
         ports = [int(p.strip()) for p in exposed_port.split(",")]
     except ValueError:
         return jsonify(code=1004, message="端口填写有误")
-    print ports
+    logger.debug(ports)
 
     # 默认开启22端口
     if 22 not in ports:
@@ -90,7 +89,7 @@ def api_create_docker():
             publish_all_ports=True
         )
     )
-    print container
+    logger.debug(container)
     docker_client.start(container.get("Id"))
 
     # 生成随机密码
@@ -100,9 +99,9 @@ def api_create_docker():
         container.get("Id"),
         'bash -c "echo root:{0} | chpasswd"'.format(new_password)
     )
-    print exec_id
+    logger.debug(exec_id)
     docker_client.exec_start(exec_id.get("Id"))
-    print "exec_done!"
+    logger.info("exec done.")
 
     # 获取端口信息，改成json格式存入数据库
     # todo 多线程
@@ -124,8 +123,11 @@ def api_create_docker():
         ports=published_ports, is_running=True,
         last_run_time=datetime.datetime.now(), last_stop_time=None
     )
-    db.session.add(user_container)
-    db.session.commit()
-
-    return "123"
+    try:
+        db.session.add(user_container)
+        db.session.commit()
+    except Exception as e:
+        logger.error(e)
+        return jsonify(code=1004, message="数据库执行失败，请稍后再试。")
+    return jsonify(code=1001, message="container生成成功！")
 
