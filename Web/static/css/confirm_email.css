@@ -1,0 +1,17 @@
+.confirm-email-alert {
+    width: 40%;
+    margin: 150px auto 50px auto;
+    text-align: center;
+}
+
+.confirm-email-login {
+    margin: 0 auto 100px auto;
+    width: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.confirm-email-login > a {
+    display: block;
+    margin: 10px;
+}

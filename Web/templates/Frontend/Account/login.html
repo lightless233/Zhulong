@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link href="{{  url_for("static", filename="css/index.css") }}" rel="stylesheet">
+    <link href="{{  url_for("static", filename="css/register.css") }}" rel="stylesheet">
+{% endblock %}
+{% block title %}登录 - 烛龙{% endblock %}
+{% block body %}
+{% include "Frontend/navbar.html" %}
+
+    <div class="register-page" style="margin-top: 100px">
+        <div class="register-title">
+            登 录
+        </div>
+        <p class="agree">
+            请输入用户名或邮箱进行登录
+        </p>
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                    <input type="text" class="form-control input-form" id="username" placeholder="请输入用户名或邮箱" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-unlock-alt" aria-hidden="true"></i></div>
+                    <input type="password" class="form-control input-form" id="password" placeholder="请输入密码" required>
+                </div>
+            </div>
+            <div id="login-result"></div>
+            <button class="btn btn-primary btn-register" id="login-btn">登录</button>
+            <p class="tips">
+                还没有账号？点我去注册
+            </p>
+        </form>
+    </div>
+
+    <div id="footer">
+        © Zhulong. All rights reserved. Designed by lightless.
+    </div>
+{% endblock %}
+{% block script %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename="js/login.js") }}"></script>
+{% endblock %}

@@ -1,0 +1,32 @@
+# Version: 0.2
+# Author: lightless
+
+FROM ubuntu:16.04
+MAINTAINER lightless "root@lightless.me"
+USER root
+
+# update source and software
+RUN apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y
+# install SSH and SSH server
+RUN apt-get install ssh openssh-server -y
+# install net tools
+RUN apt-get install net-tools curl vim lsof -y
+# install ping python
+RUN apt-get -y install iputils-ping python gcc
+
+# set root password, make privilege separation directory
+RUN echo "root:123456" | chpasswd && mkdir /var/run/sshd
+# allow root login from ssh
+RUN sed -i "s/PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
+RUN sed -i "s/PermitRootLogin without-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
+# fix ssh, otherwise user is kicked off after login
+RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
+
+# expose ssh port
+EXPOSE 22
+
+# start up SSHD when container start
+CMD ["/usr/sbin/sshd", "-D"]
+
+# clean apt
+RUN apt-get autoclean && apt-get autoremove -y

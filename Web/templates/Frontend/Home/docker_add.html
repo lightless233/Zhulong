@@ -1,0 +1,58 @@
+<div class="main-title">
+  Add Base Docker
+</div>
+<ul class="nav nav-pills second-nav">
+  <li class="nav-item">
+    <a ui-sref="docker" class="nav-link">My Dockers</a>
+  </li>
+  <li class="nav-item">
+    <a ui-sref="addDocker" class="nav-link second-nav-active">Add Base Docker</a>
+  </li>
+</ul>
+
+<div class="create-new-docker" ng-controller="createNewDocker">
+  <div class="step-title">
+    <span class="step-number">1</span>Base System Images
+  </div>
+  <div class="base-op-system">
+    <div ng-repeat="(k, v) in info" class="op-system-cell" ng-click="funcSystemImage(k)"
+         ng-class="{'op-system-cell-active': imageName==k}">
+      {{ k | angular }}
+    </div>
+  </div>
+  <div class="step-title">
+    <span class="step-number">2</span>System Version
+  </div>
+  {{ versions.version | angular }}
+  <div class="base-system-version">
+    <div ng-repeat="ver in versions" class="op-system-cell" ng-click="funcImageVersion(ver.value)"
+         ng-class="{'op-system-cell-active': ver_id == ver.value}">
+      {{ ver.version | angular }}
+    </div>
+  </div>
+  <div class="step-title">
+    <span class="step-number">3</span>Exposed Port
+  </div>
+  <div class="base-open-port form-group">
+      <div class="col-md-6" style="width: 40%;">
+        <input type="text" class="form-control" ng-model="port"
+               placeholder="Port to be exposed, e.g. 22,80,1337,2333">
+      </div>
+  </div><br />
+  <div class="step-title">
+    <span class="step-number">4</span>Container Name
+  </div>
+  <div class="base-container-name form-group">
+      <div class="col-md-6" style="width: 40%;">
+        <input type="text" class="form-control" ng-model="containerName"
+               placeholder="Container name. It will auto add your username as prefix.">
+      </div>
+  </div>
+  <hr class="sp-hr">
+  <div class="create-docker">
+    <button class="btn btn-success create-docker-btn" data-ng-disabled="createDockerBtn"
+            ng-click="funcCreateDocker()">Create</button>
+  </div>
+</div>
+
+<script src="{{ url_for("static", filename="js/home_docker_add.js") }}"></script>

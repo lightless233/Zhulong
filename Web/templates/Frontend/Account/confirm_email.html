@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link href="{{  url_for("static", filename="css/confirm_email.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="alert alert-{{ data.tag }} confirm-email-alert" role="alert">
+        {{ data.msg }}
+    </div>
+    <div class="confirm-email-login">
+        <a href="{{ url_for("account_register") }}">还没有账号？点我去注册</a>
+        <a href="{{ url_for("account_login") }}">已经有账号了？点我去登录</a>
+    </div>
+{% endblock %}
